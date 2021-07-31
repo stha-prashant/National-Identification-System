@@ -3,4 +3,5 @@ from .models import *
 # Register your models here.
 admin.site.register(Region)
 admin.site.register(District)
+admin.site.register(LocalBodyCategory)
 admin.site.register(LocalBody)
