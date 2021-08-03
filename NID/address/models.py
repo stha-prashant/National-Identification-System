@@ -15,29 +15,27 @@ class Region(models.Model):
         else:
             return f"{self.name} (Zone)"
 
+
 class District(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=64, blank=False)
-    new_old = models.BooleanField(null=True)
-    region = models.ManyToManyField(Region, blank=False, related_name="districts")
+    zone = models.ForeignKey(Region, on_delete=models.PROTECT, null=True, blank=True, related_name="is_zone_of")
+    province = models.ForeignKey(Region, on_delete=models.PROTECT, null=True, blank=True, related_name="is_province_of")
 
     def clean(self):
-        if self.new_old:
-            try:
-                self.region.get(new_old=self.new_old)
-            except:
-                # DoesNotExist or more than one exist exception raised
-                raise ValidationError("District's new_old and region's new_old mismatch")
+        if not (self.zone or self.province):
+            raise ValidationError(f"District, {self.name} belongs to no zone or province")
+    
+    def new_old(self):
+        if self.zone and not self.province:
+            return False
+        elif self.province and not self.zone:
+            return True
+        else:
+            return None
 
     def __str__(self):
         return f"{self.name}"
-
-
-# def district_region_updated(sender, **kwargs):
-#     kwargs["instance"].clean()
-
-# m2m_changed.connect(district_region_updated, sender=District.region.through)
-
 
 
 class LocalBodyCategory(models.Model):
@@ -47,6 +45,7 @@ class LocalBodyCategory(models.Model):
     
     def __str__(self):
         return f"{self.text_info}"
+
 
 class LocalBody(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
@@ -59,8 +58,8 @@ class LocalBody(models.Model):
     def clean(self):
         if self.category.new_old and self.category.new_old != self.new_old:
             raise ValidationError(f"Local body's new_old ({self.new_old}) and local body's category's new_old, ({self.category.new_old}) mismatch")
-        if self.district.new_old and self.district.new_old != self.new_old:
-            raise ValidationError(f"Local body's new_old, ({self.new_old}) and district's new_old, ({self.district.new_old}) mismatch")
+        if self.district.new_old() and self.district.new_old() != self.new_old:
+            raise ValidationError(f"Local body's new_old, ({self.new_old}) and district's new_old, ({self.district.new_old()}) mismatch")
 
     def __str__(self):
         return f"{self.name} {self.category}"

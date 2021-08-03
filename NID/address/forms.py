@@ -25,8 +25,12 @@ class AddressForm(forms.Form):
             if region.new_old != new_old:
                 raise forms.ValidationError(f"Region's new_old, ({region.new_old}) doesn't match with form's new_old, ({new_old})")
         if district:
-            if (district.region.get(new_old=new_old) != region):
-                raise ValidationError(f"District, {district} doesnt belong to specified region; {district.region.get(new_old=new_old)} != {region}")
+            if new_old:
+                if (district.province != region):
+                    raise ValidationError(f"District, {district} does not belong to specified province; {district.province} != {region}")
+            else:
+                if (district.zone != region):
+                    raise ValidationError(f"District, {district} does  belong to specified zone; {district.zone} != {region}")
         if local_body_category and local_body:
             if (local_body.district != district):
                 raise ValidationError(f"Local Body, {local_body} doesn't belong to specified district, {local_body.district}")
