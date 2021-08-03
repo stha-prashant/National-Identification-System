@@ -40,11 +40,11 @@ class District(models.Model):
 
 class LocalBodyCategory(models.Model):
     id = models.IntegerField(primary_key=True)
-    text_info = models.CharField(max_length=64, blank=False)
+    name = models.CharField(max_length=64, blank=False)
     new_old = models.BooleanField(null=True)
     
     def __str__(self):
-        return f"{self.text_info}"
+        return f"{self.name}"
 
 
 class LocalBody(models.Model):
