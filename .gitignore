@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,linux,django,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,linux,django,visualstudiocode
 
+NID/scripts/__pycache__
+
 ### Django ###
 *.log
 *.pot
@@ -251,4 +253,3 @@ cython_debug/
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/python,linux,django,visualstudiocode
-
