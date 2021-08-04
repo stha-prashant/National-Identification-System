@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,linux,django,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,linux,django,visualstudiocode
 
+#When opened with Pycharm, ignore .idea folder
+.idea/
+
 NID/scripts/__pycache__
 
 ### Django ###
@@ -17,6 +20,8 @@ media
 NID/NID/__pycache__
 NID/address/__pycache__
 NID/address/migrations
+NID/users/__pycache__
+NID/users/migrations/
 
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
