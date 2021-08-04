@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'address',
     #'django_extensions',
     'users',
+    'home',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
