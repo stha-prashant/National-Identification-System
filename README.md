@@ -13,5 +13,14 @@
 
 <hr>
 
-
+# Workflow:
+- Database models (models)
+  - Citizenship
+  - Driving license and voter ID
+  - Uploading and storing files in database
+- Django model forms from models of documents (views)
+- User login register (models + views)
+- Document authentication (models + views)
+- Frontend 
+- Dynamically update address form options - AJAX
     
