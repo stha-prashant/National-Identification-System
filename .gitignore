@@ -24,6 +24,8 @@ NID/users/__pycache__
 NID/users/migrations/
 NID/home/migrations
 NID/home/__pycache__
+NID/accounts/__pycache__
+NID/accounts/migrations
 
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
