@@ -9,15 +9,17 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'home/main.css' %}" >
+    
     {% if title %}
-    <title>NID {{ title }} </title>
+        <title>NID {{ title }} </title>
     {% else %}
-    <title>NID</title>
+         <title>NID</title>
     {% endif %}
+
 </head>
 <body>
 
-   <main role="main" class="container">
+  <main role="main" class="container">
   <div class="row">
     <div class="col-md-8">
         {% if messages %}
