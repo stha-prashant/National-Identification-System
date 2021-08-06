@@ -1,8 +1,47 @@
 {% extends "home/base.html" %}
 
-{% block content %}
-    <h1>{{ message }}</h1>
 
-    <a href="{% url 'account-login' %}">Login </a>
-    <a href="{% url 'account-register' %}">Register</a>
+{% block content %}
+
+    {% if message %}
+        <h1>{{ message }}</h1>
+    {% endif %}
+    
+    <header>
+
+    <div class="home-header">
+        <div class="emblem">
+
+            <img src="home/static/emblem.jpeg" with=100 height=100>
+
+        </div>
+
+        <div class="national-identification">
+            <h3>Government Of Nepal</h3>
+            <h1>Ministry of Home Affairs</h1>
+            <h4>Singhdurbar Kathmandu</h4>
+
+        </div>
+
+        <div class="login-register">
+            <ul>
+                <li><a href="{% url 'account-login' %}">Login </a> </li>
+                <li><a href="{% url 'account-register' %}">Register</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </header>
+
+
+    <nav>
+        <ol>
+            <li>HOME</li>
+            <li>About</li>
+            <li>Contact</li>
+
+        </ol>
+    
+    
+    </nav>
 {% endblock %}
