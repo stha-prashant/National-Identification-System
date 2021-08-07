@@ -2,5 +2,9 @@
 {% block content %}
   <h1>{{ user.username  }}</h1>
 
+  <h2>Sent User name </h2>
+  <h3> {{ name }} </h3>
+  <h2>My Role is : <h3> {{ role }} </h3> </h2>
+
   <a class="nav-item nav-link" href="{% url 'account-logout' %}">Logout</a>
 {% endblock content %}
