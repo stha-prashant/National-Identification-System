@@ -21,9 +21,12 @@
 
 </head>
 <body>
-    {% block content %}
-      
-    {% endblock %}
+
+<!--Put your page's header setion-->
+    {% block header%} {% endblock header%}
+
+<!--Put the main content of your page-->
+    {% block content %}{% endblock %}
     <!-- child templates can override the above block. -->
     <!-- ========================================================= -->
 

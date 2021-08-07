@@ -1,0 +1,51 @@
+{% extends "home/base.html" %}
+
+{% block header%}
+<header> 
+<div class="profile-layout-header">
+    <div class="pro-layout-logo">
+        <h2>Logo</h2>
+    </div>
+
+    <div class="prof-layout-title">
+
+        {% block usertype %} {% endblock usertype%}
+
+    </div>
+
+    <div>
+        <h2>Icons</h2>
+
+        <a class="nav-item nav-link" href="{% url 'account-logout' %}">Logout</a>
+
+    </div>
+
+    
+</div>
+
+</header>
+
+{% endblock header%}
+
+{% block content%}
+
+<div class="prof-content" style="{display:flex;}">
+
+    <div class="navigation-links">
+
+
+        <ol>
+        {% block approval_request %}
+
+        {% endblock approval_request%}
+        </ol>
+    </div>
+
+    <div class="personal-info">
+    {% block personal_info %} {% endblock personal_info%}
+
+    </div>
+
+</div>
+
+{% endblock content%}
