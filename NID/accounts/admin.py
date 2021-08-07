@@ -6,8 +6,9 @@ from django.contrib.auth.models import User
 
 
 
-from accounts.models import Officer
+from accounts.models import Officer, Approval
 
 # Register your models here.
 
 admin.site.register(Officer)
+admin.site.register(Approval)

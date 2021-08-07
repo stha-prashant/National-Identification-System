@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from address.models import District
 import uuid
@@ -14,7 +15,7 @@ class Officer(models.Model):
 
 
     def __str__(self):
-        return f"{self.account} working in {self.office}"
+        return f"{self.account} working in {self.office}, District: {self.office_address}"
 
 class Approval(models.Model):
     documentTypes=[
@@ -25,8 +26,14 @@ class Approval(models.Model):
     approval_no = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     approval_type = models.CharField(max_length=3, choices=documentTypes, default='CIT')
     # Officers can be fired. If the referenced officer is fired, his/her work will still remain.
-    approved_by = models.ForeignKey(Officer, null=False, on_delete=models.DO_NOTHING)
+    approved_by = models.ForeignKey(Officer, null=False, on_delete=models.DO_NOTHING, related_name="approvingOfficer")
 
-    def ___str__(self):
-        return f"{self.approval_type} approved by {self.approved_by.account}"
+    def __str__(self):
+        #ofcer = Officer.objects.get(officer_id = self.approved_by)
+        doctType = {
+        'CIT': 'Citizenship',
+        'DRI': 'Driving License',
+        'ELE' : 'Voter Card' }
+        return f"{doctType[self.approval_type]}  approved by: {self.approved_by} "
 
+# This if for testing purpose only
