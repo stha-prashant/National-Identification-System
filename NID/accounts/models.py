@@ -5,7 +5,7 @@ from address.models import District
 import uuid
 
 # Create your models here.
-class officer(models.Model):
+class Officer(models.Model):
     # What if we use username as the primary key? Afterall, one person can work at one CDO office only.
     # If he/she is transferred simply change the address field.
     # How will you assign officer_id?
