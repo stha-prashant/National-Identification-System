@@ -1,5 +1,12 @@
 {% extends "home/base.html" %}
+{% load static %}
 
+{% block title %}
+    <link rel="stylesheet" href="{% static 'home/css/home-header.css' %}">
+    <!--
+    <link rel="stylesheet" href="{% static 'home/css/home-main.css' %}">
+    -->
+{% endblock %}
 
 {% block content %}
 
@@ -12,7 +19,7 @@
     <div class="home-header">
         <div class="emblem">
 
-            <img src="home/static/emblem.jpeg" with=100 height=100>
+            <img src="{% static 'home/img/emblem.jpeg' %}">
 
         </div>
 

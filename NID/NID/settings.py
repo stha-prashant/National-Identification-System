@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'address',
-    #'django_extensions',
+    'django_extensions',
     #'users',
     'home',
     'accounts.apps.AccountsConfig',
