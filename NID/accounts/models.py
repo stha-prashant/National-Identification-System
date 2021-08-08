@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from address.models import District
+from address.models import District, Region
 import uuid
 
 # Create your models here.
@@ -37,3 +37,12 @@ class Approval(models.Model):
         return f"{doctType[self.approval_type]}  approved by: {self.approved_by} "
 
 # This if for testing purpose only
+class MyPersonalDetail(models.Model):
+    firstName = models.CharField(verbose_name='First Name',max_length=50, null=False)
+    lastName = models.CharField(verbose_name='Last Name',max_length=50, null=False)
+    email = models.EmailField(verbose_name='Email', null=True)
+    region = models.ForeignKey(Region, on_delete=models.PROTECT, related_name='peopleInRegion')
+    district = models.ForeignKey(District, on_delete=models.PROTECT, related_name='peopleInDistrict')
+
+    def __str__(self):
+        return f"{self.firstName} {self.lastName} Email: {self.email} From: {self.region} {self.district}"

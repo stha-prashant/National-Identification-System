@@ -3,9 +3,9 @@ from django.shortcuts import render, redirect
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm
+from accounts.forms import UserRegisterForm, MyProfileForm
 
-from accounts.models import Officer
+# from accounts.models import Officer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -43,6 +43,15 @@ def profile(request):
 
 
 @login_required
-def request(request):
-    return render(request, 'home/index.html')
-    
+def approvalRequest(request):
+    if request.method == 'POST':
+        form = MyProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            firstName = form.cleaned_data.get('firstName')
+            messages.success(request, f'Submitted your request {firstName}')
+            return redirect('profile-request')
+
+    else:
+        form = MyProfileForm()
+    return render(request, 'accounts/profile-approval-request.html', {'form': form})
