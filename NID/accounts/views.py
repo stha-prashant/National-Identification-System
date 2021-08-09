@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserRegisterForm, MyProfileForm, ApprovalForm
 
-# from accounts.models import Officer
+from accounts.models import Officer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -48,7 +48,7 @@ def approvalRequest(request):
         form = MyProfileForm(request.POST)
         if form.is_valid():
             form.save(commit=False)
-            form.cleaned_data['usrname'] = request.user.id
+            form.instance.posted_by = request.user
             form.save()
             messages.success(request, f'Submitted your request.')
             return redirect('profile-request')
@@ -56,12 +56,15 @@ def approvalRequest(request):
         form = MyProfileForm()
     return render(request, 'accounts/profile-approval-request.html', {'form': form})
 
-
+# Needs retification, review later.
 @login_required
 def approve(request):
     if request.method == 'POST':
         form = ApprovalForm(request.POST)
         if form.is_valid():
+            form.save(commit=False)
+            usrType = User.objects.get(username=request.user.username)
+            form.instance.approved_by = Officer.objects.get(account=usrType)
             form.save()
             messages.success(request, f'Request Approved')
             return redirect('profile-approve')    
