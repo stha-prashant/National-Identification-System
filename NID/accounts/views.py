@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import UserRegisterForm, MyProfileForm
+from accounts.forms import UserRegisterForm, MyProfileForm, ApprovalForm
 
 # from accounts.models import Officer
 from django.contrib.auth.models import User
@@ -47,11 +47,24 @@ def approvalRequest(request):
     if request.method == 'POST':
         form = MyProfileForm(request.POST)
         if form.is_valid():
+            form.save(commit=False)
+            form.cleaned_data['usrname'] = request.user.id
             form.save()
-            firstName = form.cleaned_data.get('firstName')
-            messages.success(request, f'Submitted your request {firstName}')
+            messages.success(request, f'Submitted your request.')
             return redirect('profile-request')
-
     else:
         form = MyProfileForm()
     return render(request, 'accounts/profile-approval-request.html', {'form': form})
+
+
+@login_required
+def approve(request):
+    if request.method == 'POST':
+        form = ApprovalForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Request Approved')
+            return redirect('profile-approve')    
+    else:
+        form = ApprovalForm()
+    return render(request, 'accounts/profile-approve.html', {'form': form})

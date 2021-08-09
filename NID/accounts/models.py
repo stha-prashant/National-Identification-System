@@ -1,21 +1,32 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+#from phonenumber_field.modelfields import PhoneNumberField
 
-from address.models import District, Region
+from address.models import District
 import uuid
 
 # Create your models here.
 class Officer(models.Model):
     # National ID is issued only by Home Ministry, so only they can verify your documents.
-    officer_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    account = models.OneToOneField(User, on_delete=models.PROTECT, related_name="officerName")
+    # officer_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    account = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, related_name="officerName")
     office = models.CharField(max_length=50)
     office_address = models.ForeignKey(District, null=False, on_delete=models.PROTECT)
 
 
     def __str__(self):
         return f"{self.account} working in {self.office}, District: {self.office_address}"
+class MyPersonalDetail(models.Model):
+    request_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    usrname = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField(verbose_name='Email', null=True)
+    #phone = PhoneNumberField(blank=True, unique=True)
+
+
+    def __str__(self):
+        return f"{self.usrname} Email: {self.email}"
+
 
 class Approval(models.Model):
     documentTypes=[
@@ -27,6 +38,7 @@ class Approval(models.Model):
     approval_type = models.CharField(max_length=3, choices=documentTypes, default='CIT')
     # Officers can be fired. If the referenced officer is fired, his/her work will still remain.
     approved_by = models.ForeignKey(Officer, null=False, on_delete=models.DO_NOTHING, related_name="approvingOfficer")
+    approved_document = models.OneToOneField(MyPersonalDetail, null=True, on_delete=models.CASCADE, related_name="ApprovalNumber")
 
     def __str__(self):
         #ofcer = Officer.objects.get(officer_id = self.approved_by)
@@ -35,14 +47,3 @@ class Approval(models.Model):
         'DRI': 'Driving License',
         'ELE' : 'Voter Card' }
         return f"{doctType[self.approval_type]}  approved by: {self.approved_by} "
-
-# This if for testing purpose only
-class MyPersonalDetail(models.Model):
-    firstName = models.CharField(verbose_name='First Name',max_length=50, null=False)
-    lastName = models.CharField(verbose_name='Last Name',max_length=50, null=False)
-    email = models.EmailField(verbose_name='Email', null=True)
-    region = models.ForeignKey(Region, on_delete=models.PROTECT, related_name='peopleInRegion')
-    district = models.ForeignKey(District, on_delete=models.PROTECT, related_name='peopleInDistrict')
-
-    def __str__(self):
-        return f"{self.firstName} {self.lastName} Email: {self.email} From: {self.region} {self.district}"

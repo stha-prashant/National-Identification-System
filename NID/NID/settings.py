@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'crispy_forms',
     #'documents.apps.DocumentsConfig',
+    'phonenumber_field',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,3 +129,6 @@ STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'account-profile'
 LOGIN_URL = 'account-login'
+
+# PHONENUMBER_DB_FORMAT = 'NATIONAL'
+# PHONENUMBER_DEFAULT_FORMAT = 'NP'
