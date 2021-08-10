@@ -14,7 +14,7 @@
             {% endif %}
 
     <div class="content-section">
-        <form id="citizenshipForm" data-regions-url="{% url 'ajax_load_regions' %}" data-districts-url="{% url 'ajax_load_districts' %}" data-locals-url="{% url 'ajax_load_locals' %}" action="{% url 'citizenship_form' %}" method="post">
+        <form id="citizenshipForm" data-regions-url="{% url 'ajax_load_regions' %}" data-districts-url="{% url 'ajax_load_districts' %}" data-local-categories-url="{% url 'ajax_load_local_categories' %}" data-locals-url="{% url 'ajax_load_locals' %}" action="{% url 'citizenship_form' %}" method="post">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Citizenship Form</legend>
@@ -31,10 +31,10 @@
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function load_region(tochange_id, torequest_url_attr){
+    function load_region(tocheck_id, tochange_id, torequest_url_attr){
         var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
         var new_old = 0;
-        if ($(this).is(":checked"))
+        if ($(tocheck_id).is(":checked"))
         {
             new_old = 1
         }  // get the selected country ID from the HTML input
@@ -48,6 +48,7 @@
                 $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
             }
         });
+
     }
 
     function load_district(tocheck_id, tochange_id, torequest_url_attr){
@@ -65,14 +66,37 @@
         });
     }
 
-    function load_local(tocheck_id, tochange_id, torequest_url_attr){
+    function load_local_category(tocheck_id, tochange_id, torequest_url_attr){
         var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
-        var district = $(tocheck_id).val();
+        var district = $(tocheck_id[0]).val();
+        var new_old = 0;
+        if ($(tocheck_id[1]).is(":checked"))
+        {
+            new_old = 1;
+        }  
 
         $.ajax({                       // initialize an AJAX request
             url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
             data: {
-                'district': district      // add the country id to the GET parameters
+                'district': district,
+                'new_old': new_old      // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
+            }
+        });      
+    }
+
+    function load_local(tocheck_id, tochange_id, torequest_url_attr){
+        var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
+        var local_category = $(tocheck_id[0]).val();
+        var district = $(tocheck_id[1]).val();
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'local_category': local_category,  
+                'district': district    // add the country id to the GET parameters
             },
             success: function (data) {   // `data` is the return of the `load_cities` view function
                 $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
@@ -81,11 +105,11 @@
     }
 
     //Regions based on new_old
-    $("#id_address_new_old").change(function() {
-        load_region("#id_birth_region", "data-regions-url");
+    $("#id_birth_new_old").change(function() {
+        load_region("#id_birth_new_old", "#id_birth_region", "data-regions-url");
     });
     $("#id_perma_new_old").change(function() {
-        load_region("#id_perma_region", "data-regions-url");
+        load_region("#id_perma_new_old", "#id_perma_region", "data-regions-url");
     });
 
     //districts based on region
@@ -96,12 +120,20 @@
         load_district("#id_perma_region", "#id_perma_district", "data-districts-url");
     });
     
-    //locals based on district
+    //local categories based on district and old new
     $("#id_birth_district").change(function() {
-        load_local("#id_birth_district", "#id_birth_local", "data-locals-url");
+        load_local_category(["#id_birth_district", "#id_birth_new_old"], "#id_birth_local_category", "data-local-categories-url");
     });
     $("#id_perma_district").change(function() {
-        load_local("#id_perma_district", "#id_perma_local", "data-locals-url");
+        load_local_category(["#id_perma_district", "#id_perma_new_old"], "#id_perma_local_category", "data-local-cateogries-url");
+    });
+
+    //locals based on district and old_new
+    $("#id_birth_local_category").change(function() {
+        load_local(["#id_birth_local_category", "#id_birth_district"], "#id_birth_local", "data-locals-url");
+    });
+    $("#id_perma_local_category").change(function() {
+        load_local(["#id_perma_local_category", "#id_perma_district"],"#id_perma_local", "data-locals-url");
     });
 </script>
 {% endblock content %}

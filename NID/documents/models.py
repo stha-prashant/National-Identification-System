@@ -42,7 +42,7 @@ from address.models import *
 #     def __str__(self):
 #         return f"{self.id}"
 
-# class DocumentID(models.Model):
+# class Document(models.Model):
 #     pass
 
 
@@ -78,13 +78,17 @@ class Citizenship(models.Model):
     birth_new_old = models.BooleanField(null=False)
     birth_region = models.ForeignKey(Region, on_delete=models.PROTECT, related_name="born_citizens")
     birth_district = models.ForeignKey(District, on_delete=models.PROTECT, related_name="born_citizens")
+    birth_local_category = models.ForeignKey(LocalBodyCategory, on_delete=models.PROTECT, related_name="born_citizens")
     birth_local = models.ForeignKey(LocalBody, on_delete=models.PROTECT, related_name="born_citizens")
     birth_ward_no = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(33)])
+
     perma_new_old = models.BooleanField(null=False)
     perma_region = models.ForeignKey(Region, on_delete=models.PROTECT, related_name="perma_citizens")
     perma_district = models.ForeignKey(District, on_delete=models.PROTECT, related_name="perma_citizens")
+    perma_local_category = models.ForeignKey(LocalBodyCategory, on_delete=models.PROTECT, related_name="perma_citizens")
     perma_local = models.ForeignKey(LocalBody, on_delete=models.PROTECT, related_name="perma_citizens")
-    birth_ward_no = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(33)])
+    perma_ward_no = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(33)])
+
     dob_bs = models.DateField()
     #dob_ad = models.DateField()
 
