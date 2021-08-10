@@ -5,3 +5,6 @@ from .models import *
 admin.site.register(CitizenshipAct)
 admin.site.register(CitizenshipType)
 admin.site.register(Citizenship)
+admin.site.register(DrivingLicenseIssueCentre)
+admin.site.register(DrivingLicense)
+admin.site.register(Documents)

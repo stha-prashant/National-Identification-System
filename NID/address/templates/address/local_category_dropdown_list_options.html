@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for local_category in local_categories %}
+<option value="{{ local_category.pk }}">{{ local_category.name }}</option>
+{% endfor %}

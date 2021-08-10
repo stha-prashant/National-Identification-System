@@ -98,16 +98,41 @@ class DrivingLicenseIssueCentre(models.Model):
 
 class DrivingLicense(models.Model):
     LICENSE_CATEGORY_CHOICES=(
-        
+        ("A", "A: Motorycle, Scooter, Moped"),
+        ("B", "B: Car, Jeep, Delivery Van"),
+        ("K", "K: Scooter, Moped"),
+        ("C", "C: Tempo, Auto Ricksaw"),
+        ("C1", "C1: E-Rickshaw"),
+        ("D", "D: Power Tiller"),
+        ("E", "E: Tractor"),
+        ("F", "F: Minibus, Minitruck"),
+        ("G", "G: Truck, Bus, Lorry"),
+        ("H", "H: Road Roller, Dozer"),
+        ("H1", "H1:Dozer"),
+        ("H2", "H2: Road Roller"),
+        ("I", "I: Crane, Fire Brigade, Loader"),
+        ("I1", "I1: Crane"),
+        ("I2", "I2: Fire Brigade"),
+        ("I3", "I3: Loader"),
+        ("J1", "J1: Excavator"),
+        ("J2", "J2: Backhoe Loader"),
+        ("J3", "J3: Grader"),
+        ("J4", "J4: Forklift"),
+        ("J5", "J5: Other"),
     )
     BLOOD_GROUP_CHOICES=(
-
+        ("A+", "A+"),
+        ("B+", "B+"),
+        ("AB+", "AB+"),
+        ("AB-", "AB-"),
+        ("O+", "O+"),
+        ("O-", "O-"),
     )
     id = models.IntegerField(primary_key=True)
     issue_date = models.DateField(auto_now=False, auto_now_add=False)
     issue_centre = models.ForeignKey(DrivingLicenseIssueCentre, on_delete=models.PROTECT, related_name="licenses")
-    blood_group = models.CharField(choices=BLOOD_GROUP_CHOICES, max_length=1)
-    license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=1)  
+    blood_group = models.CharField(choices=BLOOD_GROUP_CHOICES, max_length=3)
+    license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=2)  
     document_photo = models.FileField(upload_to="media/", blank=True, null=True)
 
     def __str__(self):
