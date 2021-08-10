@@ -10,11 +10,11 @@ class CitizenshipForm(ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['birth_region'].queryset = Region.objects.none()
+        self.fields['birth_region'].queryset = Region.objects.filter(new_old=False)
         self.fields['birth_district'].queryset = District.objects.none()
         self.fields['birth_local'].queryset = LocalBody.objects.none()
 
-        self.fields['perma_region'].queryset = Region.objects.none()
+        self.fields['perma_region'].queryset = Region.objects.filter(new_old=False)
         self.fields['perma_district'].queryset = District.objects.none()
         self.fields['perma_local'].queryset = LocalBody.objects.none()
 

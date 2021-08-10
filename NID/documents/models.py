@@ -75,7 +75,7 @@ class Citizenship(models.Model):
     first_name = models.CharField(max_length=32, blank=False)
     middle_name = models.CharField(max_length=32, blank=True, null=True)
     last_name = models.CharField(max_length=32, blank=False)
-    address_new_old = models.BooleanField(null=False)
+    birth_new_old = models.BooleanField(null=False)
     birth_region = models.ForeignKey(Region, on_delete=models.PROTECT, related_name="born_citizens")
     birth_district = models.ForeignKey(District, on_delete=models.PROTECT, related_name="born_citizens")
     birth_local = models.ForeignKey(LocalBody, on_delete=models.PROTECT, related_name="born_citizens")

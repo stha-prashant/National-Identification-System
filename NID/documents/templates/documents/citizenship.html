@@ -1,91 +1,107 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Citizenship</title>
-    </head>
-    <body>
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <main role="main" class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor%}
+            {% endif %}
+
+    <div class="content-section">
         <form id="citizenshipForm" data-regions-url="{% url 'ajax_load_regions' %}" data-districts-url="{% url 'ajax_load_districts' %}" data-locals-url="{% url 'ajax_load_locals' %}" action="{% url 'citizenship_form' %}" method="post">
             {% csrf_token %}
-            <table>
-                {{ form.as_table }}
-            </table>
-            <input type="submit">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Citizenship Form</legend>
+                <!--{{ form.as_p}} -->
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Submit</button>
+              <button class="btn btn-outline-info" type="reset">Reset</button>
+            </div>
         </form>
-    </body>
+    </div>
+    
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function load_region(tochange_id, torequest_url_attr){
+        var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
+        var new_old = 0;
+        if ($(this).is(":checked"))
+        {
+            new_old = 1
+        }  // get the selected country ID from the HTML input
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-        function load_region(tochange_id, torequest_url_attr){
-            var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
-            var new_old = 0;
-            if ($(this).is(":checked"))
-            {
-                new_old = 1
-            }  // get the selected country ID from the HTML input
-
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    'new_old': new_old      // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
-                }
-            })
-        }
-
-        function load_district(tocheck_id, tochange_id, torequest_url_attr){
-            var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
-            var region = $(tocheck_id).val();
-
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    'region': region      // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
-                }
-            })
-        }
-
-        function load_local(tocheck_id, tochange_id, torequest_url_attr){
-            var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
-            var district = $(tocheck_id).val();
-
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    'district': district      // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
-                }
-            })
-        }
-
-        //Regions based on new_old
-        $("#id_address_new_old").change(function() {
-            load_region("#id_birth_region", "data-regions-url");
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'new_old': new_old      // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
+            }
         });
-        $("#id_perma_new_old").change(function() {
-            load_region("#id_perma_region", "data-regions-url");
-        });
+    }
 
-        //districts based on region
-        $("#id_birth_region").change(function() {
-            load_district("#id_birth_region", "#id_birth_district", "data-districts-url");
+    function load_district(tocheck_id, tochange_id, torequest_url_attr){
+        var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
+        var region = $(tocheck_id).val();
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'region': region      // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
+            }
         });
-        $("#id_perma_region").change(function() {
-            load_district("#id_perma_region", "#id_perma_district", "data-districts-url");
+    }
+
+    function load_local(tocheck_id, tochange_id, torequest_url_attr){
+        var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
+        var district = $(tocheck_id).val();
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'district': district      // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $(tochange_id).html(data);  // replace the contents of the city input with the data that came from the server
+            }
         });
-        
-        //locals based on district
-        $("#id_birth_district").change(function() {
-            load_local("#id_birth_district", "#id_birth_local", "data-locals-url");
-        });
-        $("#id_perma_district").change(function() {
-            load_local("#id_perma_district", "#id_perma_local", "data-locals-url");
-        });
-    </script>
-</html>
+    }
+
+    //Regions based on new_old
+    $("#id_address_new_old").change(function() {
+        load_region("#id_birth_region", "data-regions-url");
+    });
+    $("#id_perma_new_old").change(function() {
+        load_region("#id_perma_region", "data-regions-url");
+    });
+
+    //districts based on region
+    $("#id_birth_region").change(function() {
+        load_district("#id_birth_region", "#id_birth_district", "data-districts-url");
+    });
+    $("#id_perma_region").change(function() {
+        load_district("#id_perma_region", "#id_perma_district", "data-districts-url");
+    });
+    
+    //locals based on district
+    $("#id_birth_district").change(function() {
+        load_local("#id_birth_district", "#id_birth_local", "data-locals-url");
+    });
+    $("#id_perma_district").change(function() {
+        load_local("#id_perma_district", "#id_perma_local", "data-locals-url");
+    });
+</script>
+{% endblock content %}
