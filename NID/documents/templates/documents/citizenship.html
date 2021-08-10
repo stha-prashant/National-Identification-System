@@ -14,7 +14,7 @@
             {% endif %}
 
     <div class="content-section">
-        <form id="citizenshipForm" data-regions-url="{% url 'ajax_load_regions' %}" data-districts-url="{% url 'ajax_load_districts' %}" data-local-categories-url="{% url 'ajax_load_local_categories' %}" data-locals-url="{% url 'ajax_load_locals' %}" action="{% url 'citizenship_form' %}" method="post">
+        <form enctype="multipart/form-data" id="citizenshipForm" data-regions-url="{% url 'ajax_load_regions' %}" data-districts-url="{% url 'ajax_load_districts' %}" data-local-categories-url="{% url 'ajax_load_local_categories' %}" data-locals-url="{% url 'ajax_load_locals' %}" action="{% url 'citizenship_form' %}" method="post">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Citizenship Form</legend>

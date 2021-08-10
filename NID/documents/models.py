@@ -132,8 +132,8 @@ class DrivingLicense(models.Model):
     issue_date = models.DateField(auto_now=False, auto_now_add=False)
     issue_centre = models.ForeignKey(DrivingLicenseIssueCentre, on_delete=models.PROTECT, related_name="licenses")
     blood_group = models.CharField(choices=BLOOD_GROUP_CHOICES, max_length=3)
-    license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=2)  
-    document_photo = models.FileField(upload_to="media/", blank=True, null=True)
+    license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=32)  
+    document_photo = models.FileField(upload_to="license/", blank=True, null=True)
 
     def __str__(self):
         return f"{self.id}"

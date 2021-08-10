@@ -132,3 +132,6 @@ LOGIN_URL = 'account-login'
 
 # PHONENUMBER_DB_FORMAT = 'NATIONAL'
 # PHONENUMBER_DEFAULT_FORMAT = 'NP'
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

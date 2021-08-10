@@ -14,7 +14,7 @@
             {% endif %}
 
     <div class="content-section">
-        <form method="post">
+        <form enctype="multipart/form-data" method="post">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">License Form</legend>
