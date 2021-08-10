@@ -2,10 +2,9 @@
 {% load static %}
 
 {% block title %}
-    <link rel="stylesheet" href="{% static 'home/css/home-header.css' %}">
-    <!--
-    <link rel="stylesheet" href="{% static 'home/css/home-main.css' %}">
-    -->
+    <!--Linking CSS stylesheets-->
+    <link rel="stylesheet" href="{% static 'home/css/header_navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/footer.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,40 +14,69 @@
     {% endif %}
     
     <header>
+        <div class="flex-container-header">
+            <div class="logo">
 
-    <div class="home-header">
-        <div class="emblem">
+                <img src="{% static 'home/img/emblem.jpeg' %}">
 
-            <img src="{% static 'home/img/emblem.jpeg' %}">
-
+            </div>
+                <div class="project-name">
+                    <h5>Government of Nepal</h3>
+                    <h2>Ministry of Home Affairs</h1>
+                    <h6>Singhadurbar, Kathmandu</h4>
+                </div>
+            <div class="navbar">
+                    <nav>
+                        <ul>
+                            <li><a href="{% url 'account-login' %}">Login</a></li>
+                            <li><a href="{% url 'account-register' %}">Register</a></li>
+                        </ul>
+                    </nav>
+                </div>
         </div>
-
-        <div class="national-identification">
-            <h3>Government Of Nepal</h3>
-            <h1>Ministry of Home Affairs</h1>
-            <h4>Singhdurbar Kathmandu</h4>
-
-        </div>
-
-        <div class="login-register">
-            <ul>
-                <li><a href="{% url 'account-login' %}">Login </a> </li>
-                <li><a href="{% url 'account-register' %}">Register</a></li>
-            </ul>
-        </div>
-    </div>
-
     </header>
+        <div class="navigationbar">
+                    <div class="navlink"><a href="{% url 'home-index' %}">Home</a></div>
+                    <div class="navlink"><a href="#">About</a></div>
+                    <div class="navlink"><a href="#">FAQ</a></div>
+        </div>
+        <br>
 
-
-    <nav>
-        <ol>
-            <li>HOME</li>
-            <li>About</li>
-            <li>Contact</li>
-
-        </ol>
     
-    
-    </nav>
+    <div class="flex-container-body">
+
+          <div class="flex-container-banner">
+                <!--Banner will be here -->
+          </div>
+
+            <!--Footer section of the page-->
+            <footer>
+                <div class="flex-container-footer">
+                    <div class="contact-us">
+                        <span>Contact us:</span>
+                        <ul>
+                            <a href="mailto:#"><li><i class="fa fa-envelope" style="font-size: 16px; color:white;"></i> support@nationalidentity.gov.np</li></a>
+                            <li><i class="fa fa-phone"></i> 9869056799</li>
+                        </ul>
+                    </div>
+
+                    <div class="social-media">
+                        <!--Links are not added.-->
+                        <a href="#" class="fa fa-facebook"></a>
+                        <a href="#" class="fa fa-twitter"></a>
+                    </div>
+
+                    <div class="links">
+                        <span>Links:</span>
+                        <ul>
+                            <li>About us</li>
+                            <li>Goals</li>
+                            <li>Privacy</li>
+                            <li>Feedback</li>
+                        </ul>
+
+                    </div>
+                </div>
+              </footer>
+        </div>
 {% endblock %}

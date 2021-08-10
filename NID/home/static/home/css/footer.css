@@ -1,0 +1,120 @@
+/*Styling the footer section */
+
+
+/*Flex container for body of homepage.*/
+
+.flex-container-body {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/*Styling disaster index and sort-by bar*/
+
+.flex-container-body {
+    width: 80%;
+    border-top: #f4f4f4 1px solid;
+    background-color: #29383b;
+    color: white;
+}
+
+.flex-container-footer {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+footer {
+    background: #37743D;
+    /*background: linear-gradient(to right,#35424a,#0e2433,#22323d,#021c2e,#485157);*/
+    color: #ffffff;
+    min-height: 60px;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+}
+
+footer ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+footer ul li {
+    display: inline;
+}
+
+
+/*Styling contact section*/
+
+.contact-us {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: block;
+    color: #ffffff;
+}
+
+.contact-us a {
+    text-decoration: none;
+    color: white;
+}
+
+.contact-us ul li {
+    display: block;
+}
+
+
+/*Styling Social media section*/
+
+.social-media {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.fa.fa-facebook,
+.fa.fa-twitter {
+    padding: 10px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+    margin-right: 20px;
+}
+
+.fa-twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.fa-facebook:hover,
+.fa-twitter:hover {
+    opacity: 0.7;
+}
+
+
+/*Styling Links Section*/
+
+.links {
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.links ul li {
+    padding: 5px;
+    margin-right: 5px;
+}
