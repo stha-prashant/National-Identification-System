@@ -16,11 +16,11 @@ def citizenship(request):
 
 
 
-# def license(request):
-#     if request.method == 'POST':
-#         return "form submitted"
-#     else:
-#         form = DrivingLicenseForm()
-#         return render(request, 'documents/license.html', {
-#             'form': form
-#         })
+def license(request):
+    if request.method == 'POST':
+        return "form submitted"
+    else:
+        form = DrivingLicenseForm()
+        return render(request, 'documents/license.html', {
+            'form': form
+        })

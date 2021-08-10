@@ -118,7 +118,7 @@ class CitizenshipForm(ModelForm):
             
 
 
-# class DrivingLicenseForm(ModelForm):
-#     class Meta:
-#         model = DrivingLicense
-#         fields = '_all__'
+class DrivingLicenseForm(ModelForm):
+    class Meta:
+        model = DrivingLicense
+        fields = '__all__'
