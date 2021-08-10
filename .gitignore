@@ -15,7 +15,6 @@ __pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media
 
 NID/NID/__pycache__
 NID/address/__pycache__
@@ -26,7 +25,8 @@ NID/home/migrations
 NID/home/__pycache__
 NID/accounts/__pycache__
 NID/accounts/migrations
-
+NID/documents/__pycache___
+NID/documents/migrations
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
