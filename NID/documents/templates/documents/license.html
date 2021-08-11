@@ -1,15 +1,32 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Citizenship</title>
-    </head>
-    <body>
-        <form action="{% url 'license_form' %}" method="post">
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <main role="main" class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor%}
+            {% endif %}
+
+    <div class="content-section">
+        <form enctype="multipart/form-data" method="post">
             {% csrf_token %}
-            <table>
-                {{ form.as_table }}
-            </table>
-            <input type="submit">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">License Form</legend>
+                <!--{{ form.as_p}} -->
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Submit</button>
+              <button class="btn btn-outline-info" type="reset">Reset</button>
+            </div>
         </form>
-    </body>
-</html>
+    </div>
+    
+</main>
+{% endblock content %}

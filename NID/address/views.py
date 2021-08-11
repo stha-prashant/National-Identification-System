@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
+from django.db.models import Q
 
 
 from .models import *
@@ -37,10 +38,19 @@ def load_districts(request):
     
     })
 
-#to fix: add local category field in model and add filtering based on category to this view
+def load_local_categories(request):
+    # TODO: maybe add filtering based on district 
+    # district = request.GET.get("district")
+    new_old = request.GET.get("new_old")
+    local_categories = LocalBodyCategory.objects.filter(Q(new_old=new_old) | Q(new_old=None)) 
+    return render(request, 'address/local_category_dropdown_list_options.html', {
+        'local_categories': local_categories
+    })
+
 def load_locals(request):
     district = request.GET.get("district")
-    locals = LocalBody.objects.filter(district=district)
+    local_category = request.GET.get("local_category")
+    locals = LocalBody.objects.filter(category=local_category, district=district)
     return render(request, 'address/local_dropdown_list_options.html', {
         'locals': locals
     })
