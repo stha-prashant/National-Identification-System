@@ -1,0 +1,64 @@
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    background-color: #292e29;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #f8f8f8;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 200px;
+    /* Same as the width of the sidenav */
+    margin-top: 0px;
+}
+
+
+/*
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}*/
+
+header a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+    background-color: #6DAC73;
+    border-radius: 40%;
+    border-width: 1px;
+    border-color: #ffffff;
+}
+
+.navbar a:link,
+a:visited {
+    font-size: 16px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar a:hover,
+a:active {
+    font-size: 17px;
+    color: #ffffff;
+    background-color: #049159
+}

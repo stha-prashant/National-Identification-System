@@ -1,0 +1,80 @@
+/*
+Header stylingsheet
+*/
+
+
+/*Applied to all elements*/
+
+* {
+    box-sizing: border-box;
+}
+
+
+/*Flexbox container for header.*/
+
+.flex-container-header {
+    width: 95%;
+    margin: auto;
+    margin-top: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+
+/*Styling logo*/
+
+.logo {
+    padding: 0px;
+    flex-shrink: 0;
+    margin: auto;
+}
+
+.logo img {
+    border-radius: 50%;
+    padding: 2px;
+    border: 2px solid #e6e6e6;
+    width: 100%;
+    height: 100%;
+    max-width: 100px;
+    max-height: 100px;
+    min-width: 50px;
+    min-height: 50px;
+}
+
+
+/*Header*/
+
+header {
+    background: #37743D;
+    /*background: linear-gradient(to right, #35424a, #0e2433, #22323d, #021c2e, #485157);*/
+    color: #ffffff;
+    min-height: 60px;
+    /*border-bottom: #e8491d 3px solid;*/
+}
+
+header .project-name {
+    padding-bottom: 0px;
+    width: 50%;
+}
+
+header .project-name h1 {
+    text-align: center;
+}
+
+header nav {
+    margin-top: 0px;
+    shape-outside: margin-box;
+    background: #6DAC73;
+}
+
+header .navbar {
+    /*border: red 1px solid;*/
+    align-items: flex-end;
+    width: 20%;
+    margin: auto;
+    justify-content: center;
+    align-content: center;
+}
