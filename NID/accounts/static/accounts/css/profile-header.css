@@ -9,6 +9,10 @@ Header stylingsheet
     box-sizing: border-box;
 }
 
+body {
+    width: 80%;
+}
+
 
 /*Flexbox container for header.*/
 
@@ -38,8 +42,8 @@ Header stylingsheet
     border: 2px solid #e6e6e6;
     width: 100%;
     height: 100%;
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 60px;
+    max-height: 60px;
     min-width: 50px;
     min-height: 50px;
 }
@@ -48,7 +52,7 @@ Header stylingsheet
 /*Header*/
 
 header {
-    background: #37743D;
+    background: #0079ca;
     /*background: linear-gradient(to right, #35424a, #0e2433, #22323d, #021c2e, #485157);*/
     color: #ffffff;
     min-height: 60px;
@@ -58,6 +62,7 @@ header {
 header .project-name {
     padding-bottom: 0px;
     width: 50%;
+    text-align: center;
 }
 
 header .project-name h1 {
@@ -71,7 +76,6 @@ header nav {
 }
 
 header .navbar {
-    /*border: red 1px solid;*/
     align-items: flex-end;
     width: 20%;
     margin: auto;
@@ -81,12 +85,12 @@ header .navbar {
 
 header a {
     display: block;
-    color: white;
+    color: rgb(255, 255, 255);
     text-align: center;
     padding: 10px 10px 10px 10px;
     text-decoration: none;
-    background-color: #6DAC73;
-    border-radius: 40%;
+    background-color: #eb1515;
+    border-radius: 50%;
     border-width: 1px;
     border-color: #ffffff;
 }
@@ -102,5 +106,5 @@ a:visited {
 a:active {
     font-size: 17px;
     color: #ffffff;
-    background-color: #049159
+    background-color: #d63565
 }
