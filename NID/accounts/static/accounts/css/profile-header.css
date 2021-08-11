@@ -78,3 +78,29 @@ header .navbar {
     justify-content: center;
     align-content: center;
 }
+
+header a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+    background-color: #6DAC73;
+    border-radius: 40%;
+    border-width: 1px;
+    border-color: #ffffff;
+}
+
+.navbar a:link,
+a:visited {
+    font-size: 16px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar a:hover,
+a:active {
+    font-size: 17px;
+    color: #ffffff;
+    background-color: #049159
+}
