@@ -70,7 +70,7 @@ class Citizenship(models.Model):
     mother_last_name = models.CharField(max_length=32, blank=True, null=True)
     
     #Will this be a problem
-    mother_citizenship_id = models.IntegerField()#blank=True, null=True)
+    mother_citizenship_id = models.IntegerField(blank=True, null=True)
 
     #issue: need to consider marital status, added another field perhaps
     is_married = models.BooleanField(null=False)
