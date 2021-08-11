@@ -67,7 +67,7 @@
     }
 
     function load_local_category(tocheck_id, tochange_id, torequest_url_attr){
-        var url = $("#citizenshipForm").attr(torequest_url_attr);  // get the url of the `load_cities` view
+        var url = $("#citizenshipForm").attr("data-local-categories-url");  // get the url of the `load_cities` view
         var district = $(tocheck_id[0]).val();
         var new_old = 0;
         if ($(tocheck_id[1]).is(":checked"))
@@ -133,7 +133,7 @@
         load_local(["#id_birth_local_category", "#id_birth_district"], "#id_birth_local", "data-locals-url");
     });
     $("#id_perma_local_category").change(function() {
-        load_local(["#id_perma_local_category", "#id_perma_district"],"#id_perma_local", "data-locals-url");
+        load_local(["#id_perma_local_category", "#id_perma_district"], "#id_perma_local", "data-locals-url");
     });
 </script>
 {% endblock content %}

@@ -6,7 +6,8 @@ from address.models import *
 class CitizenshipForm(ModelForm):
     class Meta:
         model = Citizenship
-        fields = '__all__'
+        exclude = ('approval', )
+
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -46,7 +47,7 @@ class CitizenshipForm(ModelForm):
         if 'birth_district' in self.data:
             try:
                 region = self.data.get('birth_region')
-                self.fields['birth_district'].queryset = District.objects.filter(region=region)
+                self.fields['birth_district'].queryset = (District.objects.filter(zone=region) or District.objects.filter(province=region))
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
@@ -57,7 +58,7 @@ class CitizenshipForm(ModelForm):
         if 'perma_district' in self.data:
             try:
                 region = self.data.get('perma_region')
-                self.fields['perma_district'].queryset = District.objects.filter(region=region)
+                self.fields['perma_district'].queryset = (District.objects.filter(zone=region) or District.objects.filter(province=region))
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
@@ -69,6 +70,9 @@ class CitizenshipForm(ModelForm):
             try:
                 # district = self.data.get('birth_district')
                 new_old = self.data.get('birth_new_old')
+                new_old = False
+                if (new_old == "on"):
+                    new_old = True
                 self.fields['birth_local_category'].queryset = LocalBodyCategory.objects.filter(new_old=new_old)
             except (ValueError, TypeError):
                 pass
@@ -81,6 +85,9 @@ class CitizenshipForm(ModelForm):
             try:
                 # district = self.data.get('birth_district')
                 new_old = self.data.get('perma_new_old')
+                new_old = False
+                if (new_old == "on"):
+                    new_old = True
                 self.fields['perma_local_category'].queryset = LocalBodyCategory.objects.filter(new_old=new_old)
             except (ValueError, TypeError):
                 pass
@@ -93,7 +100,7 @@ class CitizenshipForm(ModelForm):
             try:
                 district = self.data.get('birth_district')
                 local_category = self.data.get('birth_local_category')
-                self.fields['birth_local'].queryset = District.objects.filter(district=district, category=local_category)
+                self.fields['birth_local'].queryset = District.objects.get(pk=district).local_bodies.filter(category=local_category)
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
@@ -106,7 +113,7 @@ class CitizenshipForm(ModelForm):
             try:
                 district = self.data.get('perma_district')
                 local_category = self.data.get('perma_local_category')
-                self.fields['perma_local'].queryset = District.objects.filter(district=district, category=local_category)
+                self.fields['perma_local'].queryset = District.objects.get(pk=district).local_bodies.filter(category=local_category)
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
