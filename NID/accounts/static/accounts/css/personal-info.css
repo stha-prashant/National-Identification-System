@@ -1,0 +1,18 @@
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.myinfo {
+    display: flex;
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    border: blue 1 px solid;
+}
+
+.myinfo ul {
+    list-style: none;
+}

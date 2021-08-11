@@ -1,51 +1,55 @@
 {% extends "home/base.html" %}
+{% load static %}
 
-{% block header %}
-<header> 
-<div class="profile-layout-header">
-    <div class="pro-layout-logo">
-        <h2>Logo</h2>
-    </div>
 
-    <div class="prof-layout-title">
+{% block title %} 
 
-        {% block usertype %} {% endblock usertype%}
-
-    </div>
-
-    <div>
-        <h2>Icons</h2>
-
-        <a class="nav-item nav-link" href="{% url 'account-logout' %}">Logout</a>
-
-    </div>
-
-    
-</div>
-
-</header>
-
-{% endblock header%}
+    <link rel="stylesheet" href="{% static 'accounts/css/profile-header.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/profile-sidenav.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/personal-info.css' %}">
+{% endblock title%}
 
 {% block content%}
 
-<div class="prof-content">
+<div class="sidenav">
+            <a href="#">Home</a>
+            <a href="#">Citizenship</a>
+            <a href="#">Driving License</a>
+            {% block approval_request %}
 
-    <div class="navigation-links">
-
-
-        <!--Put common options here-->
-
-        {% block approval_request %}
-
-        {% endblock approval_request%}
-    </div>
-
-    <div class="personal-info">
-    {% block personal_info %} {% endblock personal_info%}
-
-    </div>
-
+            {% endblock approval_request%}
+            <a href="#"><i class='fas fa-file-alt'></i>National ID</a>
+            <a href="#">Profile</a>
+            <a href="#">Change Password</a>
+            <a href="#">QR Code</a>
 </div>
+        <header>
+        <div class="main">    
+            <div class="flex-container-header">
+                <div class="logo">
 
+                    <img src="{% static 'home/img/emblem.jpeg' %}">
+
+                    </div>
+                        <div class="project-name">
+                            <h1>National Identity Card </h1>
+                        </div>
+                        <div class="navbar">
+                            <a href="{% url 'account-logout' %}">Logout</a>
+                        </div>
+            </div>
+        </div>
+    </header>
+<div class="main">
+    <div class="myinfo">
+        <img class="rounded-circle account-img" src="{% static 'accounts/img/myface.jpg' %}">
+        <ul>
+            <li>Full Name: </li>
+            <li>username: {{ user.username  }}
+            <li>Email: </li>
+            <li>Phone : </li>
+            <li>Role: {{ role }} </li>
+        </ul>
+    </div>
+ </div>
 {% endblock content%}
