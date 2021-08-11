@@ -6,11 +6,8 @@
 
     <link rel="stylesheet" href="{% static 'accounts/css/profile-header.css' %}">
     <link rel="stylesheet" href="{% static 'accounts/css/profile-sidenav.css' %}">
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="{% static 'accounts/css/personal-info.css' %}">
 {% endblock title%}
-
-{% block header %}
-{% endblock header%}
 
 {% block content%}
 
@@ -18,11 +15,9 @@
             <a href="#">Home</a>
             <a href="#">Citizenship</a>
             <a href="#">Driving License</a>
-            <!--Put common options here-->
             {% block approval_request %}
 
             {% endblock approval_request%}
-        
             <a href="#"><i class='fas fa-file-alt'></i>National ID</a>
             <a href="#">Profile</a>
             <a href="#">Change Password</a>
@@ -44,6 +39,17 @@
                         </div>
             </div>
         </div>
-    </header>  
- {% block personal_info %} {% endblock personal_info%}
+    </header>
+<div class="main">
+    <div class="myinfo">
+        <img class="rounded-circle account-img" src="{% static 'accounts/img/myface.jpg' %}">
+        <ul>
+            <li>Full Name: </li>
+            <li>username: {{ user.username  }}
+            <li>Email: </li>
+            <li>Phone : </li>
+            <li>Role: {{ role }} </li>
+        </ul>
+    </div>
+ </div>
 {% endblock content%}

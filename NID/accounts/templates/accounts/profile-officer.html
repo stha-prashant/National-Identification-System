@@ -1,15 +1,5 @@
 {% extends "accounts/profile-layout.html" %}
-
-
+{% load static %}
 {% block approval_request %}
-
   <a href="{%url 'profile-approve'%}">Approve</a>
-
 {% endblock approval_request%}
-
-
-{% block personal_info %}
-  <h1>{{ user.username  }}</h1>
-  <h2>My Role: <h3> {{ role }} </h3> </h2>
-
-{% endblock personal_info %}
