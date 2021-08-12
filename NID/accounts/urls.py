@@ -10,4 +10,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='accounts/logout.html'), name='account-logout'),
     path('approval-request/', account_view.approvalRequest, name='profile-request'),
     path('approve/', account_view.approve, name='profile-approve'),
+    path('password/', account_view.password_change, name='change-password'),
+    path('qr/', account_view.qrcode, name='qrcode'),
 ]
