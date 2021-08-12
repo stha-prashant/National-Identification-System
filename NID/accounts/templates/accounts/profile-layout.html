@@ -65,7 +65,11 @@
                     <li>username: {{ user.username  }}
                     <li>Email: </li>
                     <li>Phone : </li>
-                    <li>Role: {{ role }} </li>
+                    {% if role %}
+                    <li>Role: Officer </li>
+                    {% else %}
+                    <li>Role: Citizen </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
