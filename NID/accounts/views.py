@@ -31,13 +31,13 @@ def profile(request):
     try:
         # findOfficer = Officer.objects.get(account=usrType)
         usrType.officerName 
-        role = "Officer"
-        return render(request, 'accounts/profile-officer.html',{
+        role = True
+        return render(request, 'accounts/profile.html',{
             "role": role
         })
     except ObjectDoesNotExist:
-        role = "Citizen"
-        return render(request, 'accounts/profile-citizen.html',{ 
+        role = False
+        return render(request, 'accounts/profile.html',{ 
             "role": role
         })
 
@@ -71,3 +71,12 @@ def approve(request):
     else:
         form = ApprovalForm()
     return render(request, 'accounts/profile-approve.html', {'form': form})
+
+@login_required
+def password_change(request):
+    return render(request, 'accounts/change-password.html')
+
+
+@login_required
+def qrcode(request):
+    return render(request, 'accounts/qrcode.html')
