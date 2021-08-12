@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .account-img {
     height: 125px;
     width: 125px;
@@ -5,14 +9,48 @@
     margin-bottom: 16px;
 }
 
+.main-content {
+    width: 80%;
+    margin-left: 10px
+}
+
 .myinfo {
     display: flex;
-    width: 50%;
     margin: auto;
-    margin-top: 20px;
-    border: blue 1 px solid;
+    margin-top: 15px;
+}
+
+.myinfo .contact-info {
+    font-family: Montserrat;
+    font-size: 18px;
+}
+
+#info-box {
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 16px 1px rgba(0, 0, 0, 0.19);
 }
 
 .myinfo ul {
     list-style: none;
+}
+
+.myinfo .profile-picture {
+    width: 20%;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.main .personal_details {
+    width: 100%;
+    margin-top: 15px;
+    font-family: Montserrat;
+}
+
+.personal_details td {
+    list-style: none;
+}
+
+.personal_details td {
+    padding: 10px;
 }

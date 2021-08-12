@@ -9,10 +9,6 @@ Header stylingsheet
     box-sizing: border-box;
 }
 
-body {
-    width: 80%;
-}
-
 
 /*Flexbox container for header.*/
 
@@ -23,8 +19,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: center;
-    align-content: center;
 }
 
 
@@ -51,48 +45,38 @@ body {
 
 /*Header*/
 
-header {
+nav {
     background: #0079ca;
-    /*background: linear-gradient(to right, #35424a, #0e2433, #22323d, #021c2e, #485157);*/
     color: #ffffff;
     min-height: 60px;
-    /*border-bottom: #e8491d 3px solid;*/
 }
 
-header .project-name {
+nav .project-name {
     padding-bottom: 0px;
     width: 50%;
     text-align: center;
 }
 
-header .project-name h1 {
+nav .project-name h1 {
     text-align: center;
+    font-family: Montserrat;
 }
 
-header nav {
-    margin-top: 0px;
-    shape-outside: margin-box;
-    background: #6DAC73;
-}
-
-header .navbar {
-    align-items: flex-end;
+nav .navbar {
+    align-items: flex-start;
     width: 20%;
     margin: auto;
-    justify-content: center;
-    align-content: center;
 }
 
-header a {
+nav a {
     display: block;
     color: rgb(255, 255, 255);
-    text-align: center;
-    padding: 10px 10px 10px 10px;
+    padding: 7px;
     text-decoration: none;
-    background-color: #eb1515;
     border-radius: 50%;
     border-width: 1px;
     border-color: #ffffff;
+    margin-left: 10px;
 }
 
 .navbar a:link,

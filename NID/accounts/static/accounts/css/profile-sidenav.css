@@ -1,27 +1,58 @@
 .sidenav {
     height: 100%;
-    width: 200px;
+    width: 280px;
     position: fixed;
     z-index: 1;
     background-color: #292e29;
     overflow-x: hidden;
     padding-top: 20px;
+    list-style: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
 }
 
-.sidenav a {
-    padding: 6px 6px 6px 32px;
+.sidenav ul {
+    list-style: none;
+}
+
+.sidenav header {
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    line-height: 75px;
+    user-select: none;
+    align-items: center;
+}
+
+.sidenav ul a {
+    padding: 10px 10px 10px 10px;
     text-decoration: none;
-    font-size: 15px;
     color: #f8f8f8;
     display: block;
+    text-align: left;
+    line-height: 1em;
+    height: 100%;
+    width: 100%;
+    line-height: 25px;
+    font-size: 20px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(241, 235, 235, 0.1);
+    border-bottom: 1px solid rgb(73, 73, 73);
+    transition: .3s;
 }
 
-.sidenav a:hover {
+.sidenav ul li:hover a {
     color: #f1f1f1;
+    padding-left: 15px;
+}
+
+.sidenav ul a i {
+    margin-right: 10px;
 }
 
 .main {
-    margin-left: 200px;
+    margin-left: 280px;
     /* Same as the width of the sidenav */
     margin-top: 0px;
 }

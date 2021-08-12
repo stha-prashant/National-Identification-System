@@ -1,5 +1,28 @@
 {% extends "accounts/profile-layout.html" %}
 {% load static %}
 {% block approval_request %}
-  <a href="{%url 'profile-approve'%}">Approve</a>
+  <li><a href="{%url 'profile-approve'%}"><i class="fa fa-check-square" style="font-size:24px"></i>Approve</a></li>
 {% endblock approval_request%}
+
+{%block personal_info%}
+<div class="main">
+  <div class="main-content">
+      <div class="personal_details" id="info-box">
+      <table>
+      <th>Profile Details</th>
+        <tr><td>Verified:</td><td>  </td></tr>
+        <tr><td>Role:</td><td>  </td></tr>
+        <tr><td>Date of Birth:</td><td>  </td></tr>
+        <tr><td>Gender:</td><td>  </td></tr>
+        <tr><td>Address:</td><td>  </td></tr>
+        <tr><td>Father's Name:</td><td>  </td></tr>
+        <tr><td>Mother's Name:</td><td>  </td></tr>
+        <tr><td>Identity Number:</td><td>  </td></tr>
+        <tr><td>Identity Issue Date:</td><td>  </td></tr>
+        <tr><td>Identity Issued From:</td><td>  </td></tr>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock personal_info%}
