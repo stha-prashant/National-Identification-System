@@ -62,9 +62,7 @@ def approve(request):
     else:
         form = ApprovalForm()
     return render(request, 'accounts/temp.html', {
-        'form': form,
-        'role':True
-        })
+        'form': form})
 
 @login_required
 def password_change(request):
