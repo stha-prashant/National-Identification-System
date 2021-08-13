@@ -66,7 +66,7 @@ def approve(request):
         if form.is_valid():
             form.save(commit=False)
             usrType = User.objects.get(username=request.user.username)
-            form.instance.approved_by = Officer.objects.get(account=usrType)
+            form.instance.approved_by = Officer.objects.get(account=usrType) # try expect would be better?
             form.save()
             messages.success(request, f'Request Approved')
             return redirect('profile-approve')    
@@ -85,7 +85,7 @@ def password_change(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('change_password')
+            return redirect('change-password')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
