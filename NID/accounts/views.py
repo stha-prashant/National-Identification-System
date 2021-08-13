@@ -9,7 +9,7 @@ from accounts.forms import UserRegisterForm, MyProfileForm, ApprovalForm
 
 from accounts.models import Officer
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
+#from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -29,19 +29,8 @@ def register(request):
 
 @login_required
 def profile(request):
-    usrType = User.objects.get(username=request.user.username)
-    try:
-        # findOfficer = Officer.objects.get(account=usrType)
-        usrType.officerName 
-        role = True
-        return render(request, 'accounts/profile.html',{
-            "role": role
-        })
-    except ObjectDoesNotExist:
-        role = False
-        return render(request, 'accounts/profile.html',{ 
-            "role": role
-        })
+    return render(request, 'accounts/profile.html')
+    # will have to come back here after approval process is done
 
 
 @login_required
