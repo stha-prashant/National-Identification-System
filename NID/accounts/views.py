@@ -95,3 +95,4 @@ def password_change(request):
 @login_required
 def qrcode(request):
     return render(request, 'accounts/qrcode.html')
+

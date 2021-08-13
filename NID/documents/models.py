@@ -86,7 +86,7 @@ class Citizenship(models.Model):
     citizenship_act = models.ForeignKey(CitizenshipAct, on_delete=models.PROTECT, related_name="citizenships")
 
     def __str__(self):
-        return f"ID: {self.citizenship_id} from {self.district.name}"
+        return f"ID: {self.citizenship_no} from {self.birth_district.name}"
     
     
 class DrivingLicenseIssueCentre(models.Model):
@@ -137,7 +137,7 @@ class DrivingLicense(models.Model):
     issue_centre = models.ForeignKey(DrivingLicenseIssueCentre, on_delete=models.PROTECT, blank=True, null=True, related_name="licenses")
     blood_group = models.CharField(choices=BLOOD_GROUP_CHOICES, max_length=3)
     license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=32) 
-    approval = models.ForeignKey(Approval, on_delete=models.CASCADE, related_name="licenses") 
+    approval = models.ForeignKey(Approval, on_delete=models.CASCADE, related_name="licenses", blank=True, null=True) 
     document_photo = models.FileField(upload_to="license/", blank=True, null=True)
 
     def __str__(self):
