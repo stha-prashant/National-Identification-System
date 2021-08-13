@@ -70,7 +70,10 @@ def approve(request):
             return redirect('profile-approve')    
     else:
         form = ApprovalForm()
-    return render(request, 'accounts/profile-approve.html', {'form': form})
+    return render(request, 'accounts/temp.html', {
+        'form': form,
+        'role':True
+        })
 
 @login_required
 def password_change(request):
