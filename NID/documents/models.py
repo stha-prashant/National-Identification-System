@@ -84,6 +84,9 @@ class Citizenship(models.Model):
 
     issue_date_bs = models.DateField()
     citizenship_act = models.ForeignKey(CitizenshipAct, on_delete=models.PROTECT, related_name="citizenships")
+
+    def __str__(self):
+        return f"ID: {self.citizenship_id} from {self.district.name}"
     
     
 class DrivingLicenseIssueCentre(models.Model):
@@ -138,14 +141,13 @@ class DrivingLicense(models.Model):
     document_photo = models.FileField(upload_to="license/", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.id}"
+        return f"ID: {self.id}, Category(s): {self.license_category}"
 
 
 class Documents(models.Model):
     citizenship = models.ForeignKey(Citizenship, on_delete=models.CASCADE, related_name="documents")
-    driving_license = models.ForeignKey(DrivingLicense, on_delete=models.PROTECT, related_name="documents")
-    # TODO: assign custom defined uuid for national id
-    # national_id = 
+    driving_license = models.ForeignKey(DrivingLicense, on_delete=models.PROTECT, related_name="documents", blank=True, null=True)
+    national_id = models.PositiveIntegerField(blank=True, null=True) 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="documents")
 
     

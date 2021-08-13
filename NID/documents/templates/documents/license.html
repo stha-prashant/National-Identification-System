@@ -1,32 +1,36 @@
-{% extends "home/base.html" %}
+{% extends "accounts/profile-layout.html" %}
 {% load crispy_forms_tags %}
-{% block content %}
+{% block pageContent %}
+<div class="main">
+    <div class="main-content">
+        <div class="personal_details" id="info-box">
+            <main role="main" class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor%}
+                    {% endif %}
 
-    <main role="main" class="container">
-    <div class="row">
-        <div class="col-md-8">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
+            <div class="content-section">
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">License Form</legend>
+                        <!--{{ form.as_p}} -->
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Submit</button>
+                    <button class="btn btn-outline-info" type="reset">Reset</button>
                     </div>
-                {% endfor%}
-            {% endif %}
-
-    <div class="content-section">
-        <form enctype="multipart/form-data" method="post">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">License Form</legend>
-                <!--{{ form.as_p}} -->
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-              <button class="btn btn-outline-info" type="submit">Submit</button>
-              <button class="btn btn-outline-info" type="reset">Reset</button>
+                </form>
             </div>
-        </form>
+            </main>
+        </div>
     </div>
-    
-</main>
-{% endblock content %}
+</div>
+{% endblock pageContent %}
