@@ -84,6 +84,9 @@ class Citizenship(models.Model):
 
     issue_date_bs = models.DateField()
     citizenship_act = models.ForeignKey(CitizenshipAct, on_delete=models.PROTECT, related_name="citizenships")
+
+    def __str__(self):
+        return f"ID: {self.citizenship_no} from {self.birth_district.name}"
     
     
 class DrivingLicenseIssueCentre(models.Model):
@@ -134,18 +137,17 @@ class DrivingLicense(models.Model):
     issue_centre = models.ForeignKey(DrivingLicenseIssueCentre, on_delete=models.PROTECT, blank=True, null=True, related_name="licenses")
     blood_group = models.CharField(choices=BLOOD_GROUP_CHOICES, max_length=3)
     license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=32) 
-    approval = models.ForeignKey(Approval, on_delete=models.CASCADE, related_name="licenses") 
+    approval = models.ForeignKey(Approval, on_delete=models.CASCADE, related_name="licenses", blank=True, null=True) 
     document_photo = models.FileField(upload_to="license/", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.id}"
+        return f"ID: {self.id}, Category(s): {self.license_category}"
 
 
 class Documents(models.Model):
     citizenship = models.ForeignKey(Citizenship, on_delete=models.CASCADE, related_name="documents")
-    driving_license = models.ForeignKey(DrivingLicense, on_delete=models.PROTECT, related_name="documents")
-    # TODO: assign custom defined uuid for national id
-    # national_id = 
+    driving_license = models.ForeignKey(DrivingLicense, on_delete=models.PROTECT, related_name="documents", blank=True, null=True)
+    national_id = models.PositiveIntegerField(blank=True, null=True) 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="documents")
 
     
