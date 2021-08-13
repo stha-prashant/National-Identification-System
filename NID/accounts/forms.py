@@ -18,7 +18,7 @@ class MyProfileForm(forms.ModelForm):
 
     class Meta:
         model = MyPersonalDetail
-        fields = ['email','phone']
+        fields = ['email']
 
 
 class ApprovalForm(forms.ModelForm):
