@@ -55,7 +55,7 @@ def approve(request):
         if form.is_valid():
             form.save(commit=False)
             usrType = User.objects.get(username=request.user.username)
-            form.instance.approved_by = Officer.objects.get(account=usrType)
+            form.instance.approved_by = Officer.objects.get(account=usrType) 
             form.save()
             messages.success(request, f'Request Approved')
             return redirect('profile-approve')    
