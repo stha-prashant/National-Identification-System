@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from accounts.models import MyPersonalDetail, Approval, Officer
+from accounts.models import MyPersonalDetail, Approval
 
 
 class UserRegisterForm(UserCreationForm):
@@ -14,7 +14,6 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'password1', 'password2']
 class MyProfileForm(forms.ModelForm):
     email = forms.EmailField(required=False)
-    #Phone number    
 
     class Meta:
         model = MyPersonalDetail
