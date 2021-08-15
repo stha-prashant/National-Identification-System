@@ -7,7 +7,7 @@ from django.conf import settings
 
 # Create your models here.
 # issue with documents: for new creation documents id should be assigned not entered; solution: autofield for primary key, char field for document_no
-# issue with license: 
+# issue with driving_license: 
 
 
 class CitizenshipType(models.Model):
@@ -138,7 +138,7 @@ class DrivingLicense(models.Model):
     blood_group = models.CharField(choices=BLOOD_GROUP_CHOICES, max_length=3)
     license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=32) 
     approval = models.ForeignKey(Approval, on_delete=models.CASCADE, related_name="licenses", blank=True, null=True) 
-    document_photo = models.FileField(upload_to="license/", blank=True, null=True)
+    document_photo = models.FileField(upload_to="driving_license/", blank=True, null=True)
 
     def __str__(self):
         return f"ID: {self.id}, Category(s): {self.license_category}"

@@ -16,6 +16,7 @@
                     {% endif %}
 
             <div class="content-section">
+                {% if form %}
                 <form enctype="multipart/form-data" id="citizenshipForm" data-regions-url="{% url 'ajax_load_regions' %}" data-districts-url="{% url 'ajax_load_districts' %}" data-local-categories-url="{% url 'ajax_load_local_categories' %}" data-locals-url="{% url 'ajax_load_locals' %}" action="{% url 'citizenship_form' %}" method="post">
                     {% csrf_token %}
                     <fieldset class="form-group">
@@ -28,13 +29,17 @@
                     <button class="btn btn-outline-info" type="reset">Reset</button>
                     </div>
                 </form>
+                {% endif %}
             </div>
             
             </main>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-                
                 document.addEventListener("DOMContentLoaded", function() {
+                    $(".datepicker").nepaliDatePicker();
+                    $(".datepicker").each(function(){
+                        this.placeholder = "YYYY/MM/DD"
+                    });
                     document.querySelector('#id_spouse_first_name').disabled = true;
                     document.querySelector('#id_spouse_middle_name').disabled = true;
                     document.querySelector('#id_spouse_last_name').disabled = true;

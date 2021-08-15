@@ -1,12 +1,16 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, DateInput
 from documents.models import *
 from address.models import *
 
-#TODO: https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html Update form fields to contain query sets based on address fields in "post" request
 class CitizenshipForm(ModelForm):
     class Meta:
         model = Citizenship
         exclude = ('approval', )
+        widgets = {
+            'dob_bs': DateInput(attrs = {'class': 'datepicker'}),
+            'issue_date_bs': DateInput(attrs = {'class': 'datepicker'})
+        }
+
 
     
     def __init__(self, *args, **kwargs):

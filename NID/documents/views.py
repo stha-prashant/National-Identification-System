@@ -13,6 +13,21 @@ import random
 # Create your views here.
 @login_required
 def citizenship(request):
+    try:
+        documents = Documents.objects.get(user=request.user)
+        citizenship = documents.citizenship
+        return render(request, 'documents/citizenship.html', {
+            'citizenship': citizenship
+        })
+    except Documents.DoesNotExist:
+        return HttpResponseRedirect(reverse("citizenship_form"))
+
+def driving_license(request):
+    pass
+
+
+@login_required
+def citizenship_form(request):
     if request.method == 'POST':
         form = CitizenshipForm(request.POST, request.FILES)
         
@@ -36,11 +51,11 @@ def citizenship(request):
                 citizenship.save()
                 Documents(citizenship=citizenship, user=request.user).save()
 
-            return HttpResponseRedirect(reverse("account-profile"))
+            return HttpResponseRedirect(reverse("citizenship"))
         else:
             return render(request, 'documents/citizenship.html', {
                 'form': form,
-                'message': "Invalid form inputs! Please fix the following errors."
+                'messages': ["Invalid form inputs! Please fix the following errors.",]
             })
 
     else:
@@ -49,10 +64,26 @@ def citizenship(request):
             'form': form
         })
 
+@login_required
+def driving_license(request):
+    try:
+        documents = Documents.objects.get(user=request.user)
+        driving_license = documents.driving_license
+        if not driving_license:
+            return HttpResponseRedirect(reverse("driving_license_form"))
+        else:
+            return render(request, 'documents/driving_license.html', {
+                'driving_license': driving_license
+            })
+    except Documents.DoesNotExist:
+        return render(request, 'documents/driving_license.html', {
+            'messages': ['Please submit your citizenship first', ]
+        })
+    
 
 @method_decorator(login_required, name='dispatch')
 class DrivingLicenseCreateView(CreateView):
     model = DrivingLicense
     fields = ['id', 'issue_date', 'issue_centre', 'blood_group', 'license_category', 'document_photo']
-    template_name = "documents/license.html"
-    success_url = reverse_lazy('home-index')
+    template_name = "documents/driving_license.html"
+    success_url = reverse_lazy('driving_license')
