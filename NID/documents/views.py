@@ -80,10 +80,18 @@ def driving_license(request):
             'messages': ['Please submit your citizenship first', ]
         })
     
-
+#TODO: update entry for 
 @method_decorator(login_required, name='dispatch')
 class DrivingLicenseCreateView(CreateView):
     model = DrivingLicense
     fields = ['id', 'issue_date', 'issue_centre', 'blood_group', 'license_category', 'document_photo']
     template_name = "documents/driving_license.html"
     success_url = reverse_lazy('driving_license')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        documents  = Documents.objects.get(user=self.request.user)
+        documents.driving_license = self.object
+        documents.save()
+        return super(DrivingLicenseCreateView, self).form_valid(form)
+        
