@@ -16,6 +16,7 @@
                     {% endif %}
 
             <div class="content-section">
+                {% if form %}
                 <form enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     <fieldset class="form-group">
@@ -28,6 +29,7 @@
                     <button class="btn btn-outline-info" type="reset">Reset</button>
                     </div>
                 </form>
+                {% endif %}
             </div>
             </main>
         </div>
