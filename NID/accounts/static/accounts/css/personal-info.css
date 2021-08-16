@@ -20,6 +20,7 @@
     border-radius: 25px;
     padding: 20px;
     /*box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 16px 1px rgba(0, 0, 0, 0.19);*/
+    /*box-shadow: 0px 3px 4px 0px rgb(0 0 0 / 31%);*/
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.28), 0px 41.7776px 33.4221px rgba(0, 0, 0, 0.201279), 0px 22.3363px 17.869px rgba(0, 0, 0, 0.16691), 0px 12.5216px 10.0172px rgba(0, 0, 0, 0.14), 0px 6.6501px 5.32008px rgba(0, 0, 0, 0.11309), 0px 2.76726px 2.21381px rgba(0, 0, 0, 0.0787208);
     background-color: #DFE3E7
 }
