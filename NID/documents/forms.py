@@ -1,7 +1,7 @@
 from django.forms import ModelForm, DateInput
 from documents.models import *
 from address.models import *
-
+from django.db.models import Q
 class CitizenshipForm(ModelForm):
     class Meta:
         model = Citizenship
@@ -74,10 +74,11 @@ class CitizenshipForm(ModelForm):
             try:
                 # district = self.data.get('birth_district')
                 new_old = self.data.get('birth_new_old')
-                new_old = False
                 if (new_old == "on"):
                     new_old = True
-                self.fields['birth_local_category'].queryset = LocalBodyCategory.objects.filter(new_old=new_old)
+                else:
+                    new_old = False
+                self.fields['birth_local_category'].queryset = LocalBodyCategory.objects.filter(Q(new_old=new_old) | Q(new_old=None))
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
@@ -89,9 +90,10 @@ class CitizenshipForm(ModelForm):
             try:
                 # district = self.data.get('birth_district')
                 new_old = self.data.get('perma_new_old')
-                new_old = False
                 if (new_old == "on"):
                     new_old = True
+                else:
+                    new_old = False
                 self.fields['perma_local_category'].queryset = LocalBodyCategory.objects.filter(new_old=new_old)
             except (ValueError, TypeError):
                 pass

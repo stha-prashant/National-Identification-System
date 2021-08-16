@@ -80,7 +80,6 @@ def driving_license(request):
             'messages': ['Please submit your citizenship first', ]
         })
     
-#TODO: update entry for 
 @method_decorator(login_required, name='dispatch')
 class DrivingLicenseCreateView(CreateView):
     model = DrivingLicense
