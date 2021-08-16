@@ -20,7 +20,7 @@ class MyPersonalDetail(models.Model):
     request_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='requested_by')
     email = models.EmailField(verbose_name='Email', null=True)
-    phone = PhoneNumberField(blank=True, unique=True)
+    phone = PhoneNumberField(verbose_name='Phone Number', null=True, blank= True, unique=True)
 
 
     def __str__(self):

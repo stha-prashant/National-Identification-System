@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from phonenumber_field.modelfields import PhoneNumberField
 
 from accounts.models import MyPersonalDetail, Approval
-
 
 class UserRegisterForm(UserCreationForm):
     #email = forms.EmailField(required=False)
@@ -14,6 +14,7 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'password1', 'password2']
 class MyProfileForm(forms.ModelForm):
     email = forms.EmailField(required=False)
+    phone = PhoneNumberField()
 
     class Meta:
         model = MyPersonalDetail
@@ -23,4 +24,4 @@ class MyProfileForm(forms.ModelForm):
 class ApprovalForm(forms.ModelForm):
        class Meta:
         model = Approval
-        fields = ['approval_type','approved_document']
+        fields = ['approved_document']
