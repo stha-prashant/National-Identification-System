@@ -61,7 +61,7 @@ def approve(request):
             return redirect('profile-approve')    
     else:
         form = ApprovalForm()
-    return render(request, 'accounts/temp.html', {
+    return render(request, 'accounts/profile-approve.html', {
         'form': form})
 
 @login_required
