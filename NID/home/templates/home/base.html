@@ -16,8 +16,9 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
    
    <!-- Load your page specific stylings here-->
-   {% block title%}    {% endblock %}
+   {% block titleSection%}    {% endblock titleSection%}
 
+    <link rel="shortcut icon" href={% static 'home/img/favicon.ico'%}>
     
     {% if title %}
         <title>{{ title }} </title>
