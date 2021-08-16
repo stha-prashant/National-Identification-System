@@ -1,6 +1,10 @@
 from address.models import *
 
+<<<<<<< HEAD
 def run(): 
+=======
+def run():
+>>>>>>> 8c5a1cc02a373617ea50b091b5edb8ce7a7b0d15
     Region(id=1001, name="Bagmati", new_old=0).save()
     Region(id=1002, name="Janakpur", new_old=0).save()
     Region(id=1003, name="Narayani", new_old=0).save()
