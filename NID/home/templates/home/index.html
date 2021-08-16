@@ -16,14 +16,12 @@
     <header>
         <div class="flex-container-header">
             <div class="logo">
-
-                <img src="{% static 'home/img/emblem.jpeg' %}">
-
+                <img src="{% static 'home/img/emblem.png' %}">
             </div>
                 <div class="project-name">
                     <h5>Government of Nepal</h3>
-                    <h2>Ministry of Home Affairs</h1>
-                    <h6>Singhadurbar, Kathmandu</h4>
+                    <h2>Ministry of Home Affairs</h2>
+                    <h6>Singhadurbar, Kathmandu</h6>
                 </div>
             <div class="navbar">
                     <nav>
@@ -34,20 +32,19 @@
                     </nav>
                 </div>
         </div>
-
-
     </header>
-        <div class="navigationbar">
-                    <div class="navlink"><a href="{% url 'home-index' %}">Home</a></div>
-                    <div class="navlink"><a href="#">About</a></div>
-                    <div class="navlink"><a href="#">FAQ</a></div>
-        </div>
+
+    <div class="navigationbar">
+        <div class="navlink"><a href="{% url 'home-index' %}">Home</a></div>
+        <div class="navlink"><a href="#">About</a></div>
+        <div class="navlink"><a href="#">FAQ</a></div>
+    </div>
 
     
     <div class="flex-container-body">
 
           <div class="flex-container-banner">
-                <!--Banner will be here -->
+                <img src="{% static 'home/img/banner.png' %}" height="500" weight="500">
           </div>
 
             <!--Footer section of the page-->

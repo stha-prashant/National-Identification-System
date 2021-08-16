@@ -15,12 +15,12 @@
 {% block content%}
 <aside>
 <div class="sidenav">
-<nav>
-                <ol>
-                    <li><a href="{%url 'account-profile'%}"><i class="fa fa-home" style="font-size:24px"></i></a></li>
-                    <li><a href="{%url 'account-profile'%}"><i class='fas fa-user' style='font-size:24px'></i></a></li>
-                    <li><a href="{% url 'account-logout' %}"><i class="fas fa-power-off" style="font-size:24px"></i></a></li>
-                </ol>
+    <nav>
+            <ol>
+                <li><a href="{%url 'account-profile'%}"><i class="fa fa-home" style="font-size:24px"></i></a></li>
+                <li><a href="{%url 'account-profile'%}"><i class='fas fa-user' style='font-size:24px'></i></a></li>
+                <li><a href="{% url 'account-logout' %}"><i class="fas fa-power-off" style="font-size:24px"></i></a></li>
+            </ol>
             <ul>
                 <li><a href="{% url 'citizenship'%}"><i class="fa fa-address-card" style="font-size:24px"></i>Citizenship</a></li>
                 <li><a href="{% url 'driving_license'%}"><i class="fa fa-automobile" style="font-size:24px"></i>Driving License</a></li>
@@ -33,7 +33,7 @@
                 <li><a href="{%url 'change-password'%}"><i class="fa fa-wrench" style="font-size:24px"></i>Password</a></li>
                 <li><a href="{%url 'qrcode'%}"><i class="fa fa-qrcode" style="font-size:24px"></i>QR Code</a></li>
             </ul>
-</nav>
+    </nav>
 </aside>
 </div>
     <header>
