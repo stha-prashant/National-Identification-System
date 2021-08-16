@@ -9,7 +9,7 @@ from accounts.forms import UserRegisterForm, MyProfileForm, ApprovalForm
 
 from accounts.models import Officer
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
+#from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -29,19 +29,8 @@ def register(request):
 
 @login_required
 def profile(request):
-    usrType = User.objects.get(username=request.user.username)
-    try:
-        # findOfficer = Officer.objects.get(account=usrType)
-        usrType.officerName 
-        role = True
-        return render(request, 'accounts/profile.html',{
-            "role": role
-        })
-    except ObjectDoesNotExist:
-        role = False
-        return render(request, 'accounts/profile.html',{ 
-            "role": role
-        })
+    return render(request, 'accounts/profile.html')
+    # will have to come back here after approval process is done
 
 
 @login_required
@@ -66,13 +55,14 @@ def approve(request):
         if form.is_valid():
             form.save(commit=False)
             usrType = User.objects.get(username=request.user.username)
-            form.instance.approved_by = Officer.objects.get(account=usrType)
+            form.instance.approved_by = Officer.objects.get(account=usrType) 
             form.save()
             messages.success(request, f'Request Approved')
             return redirect('profile-approve')    
     else:
         form = ApprovalForm()
-    return render(request, 'accounts/profile-approve.html', {'form': form})
+    return render(request, 'accounts/temp.html', {
+        'form': form})
 
 @login_required
 def password_change(request):

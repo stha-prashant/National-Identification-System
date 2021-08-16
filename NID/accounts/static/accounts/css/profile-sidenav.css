@@ -3,7 +3,7 @@
     width: 280px;
     position: fixed;
     z-index: 1;
-    background-color: #292e29;
+    background-color: #2E6158;
     overflow-x: hidden;
     padding-top: 20px;
     list-style: none;
@@ -14,36 +14,44 @@
 
 .sidenav ul {
     list-style: none;
+    margin-left: 0px;
 }
 
-.sidenav header {
-    font-size: 25px;
-    color: white;
-    text-align: center;
-    line-height: 75px;
-    user-select: none;
-    align-items: center;
-}
-
-.sidenav ul a {
+.sidenav nav>ul a {
     padding: 10px 10px 10px 10px;
     text-decoration: none;
     color: #f8f8f8;
     display: block;
     text-align: left;
-    line-height: 1em;
+    line-height: 30px;
     height: 100%;
     width: 100%;
-    line-height: 25px;
     font-size: 20px;
     box-sizing: border-box;
-    border-top: 1px solid rgba(241, 235, 235, 0.1);
-    border-bottom: 1px solid rgb(73, 73, 73);
     transition: .3s;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 32px;
+    margin-top: 10px;
+}
+
+.sidenav ol {
+    line-height: 70px;
+    margin-top: 100px;
+}
+
+.sidenav ol li {
+    list-style: none;
+    display: inline;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.sidenav ul li {
+    margin-right: 25px;
+    margin-left: 0px;
 }
 
 .sidenav ul li:hover a {
-    color: #f1f1f1;
     padding-left: 15px;
 }
 
@@ -55,4 +63,21 @@
     margin-left: 280px;
     /* Same as the width of the sidenav */
     margin-top: 0px;
+}
+
+.sidenav nav>ol a:active,
+a:hover {
+    background-color: #2E6158;
+}
+
+.sidenav nav>ul a:link,
+a:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.sidenav nav>ul a:hover,
+a:active {
+    color: #ffffff;
+    background-color: #c75959
 }
