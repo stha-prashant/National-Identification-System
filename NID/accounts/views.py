@@ -52,7 +52,7 @@ def approvalRequest(request):
         form = MyProfileForm()
     return render(request, 'accounts/profile-approval-request.html', {
         'form': form,
-        'title':'Approve'
+        'title':'Request'
         })
 
 # Needs retification, review later.
@@ -70,7 +70,9 @@ def approve(request):
     else:
         form = ApprovalForm()
     return render(request, 'accounts/profile-approve.html', {
-        'form': form})
+        'form': form,
+        'title':'Approve'
+        })
 
 @login_required
 def password_change(request):
@@ -86,11 +88,14 @@ def password_change(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'accounts/change-password.html', {
-        'form': form
+        'form': form,
+        'title':'Change Password'
     })
 
 
 @login_required
 def qrcode(request):
-    return render(request, 'accounts/qrcode.html')
+    return render(request, 'accounts/qrcode.html',{
+        'title':'QR Code'
+    })
 
