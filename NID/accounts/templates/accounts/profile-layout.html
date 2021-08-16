@@ -1,7 +1,7 @@
 {% extends "home/base.html" %}
 {% load static %}
 
-{% block title %} 
+{% block titleSection %} 
 
     <link rel="stylesheet" type ="text/css" href="{% static 'accounts/css/profile-header.css' %}">
     <link rel="stylesheet" type ="text/css" href="{% static 'accounts/css/profile-sidenav.css' %}">
@@ -10,7 +10,7 @@
 
     <!-- Link your page specific styling for child pages here-->
     {% block add_page_style %} {% endblock add_page_style%}
-{% endblock title%}
+{% endblock titleSection %}
 
 {% block content%}
 <aside>

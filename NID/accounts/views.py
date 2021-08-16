@@ -24,12 +24,17 @@ def register(request):
 
     else:
         form = UserRegisterForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'accounts/register.html', {
+        'form': form,
+        'title':'Register'
+        })
 
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    return render(request, 'accounts/profile.html',{
+        'title':'Profile'
+    })
     # will have to come back here after approval process is done
 
 
@@ -45,7 +50,10 @@ def approvalRequest(request):
             return redirect('profile-request')
     else:
         form = MyProfileForm()
-    return render(request, 'accounts/profile-approval-request.html', {'form': form})
+    return render(request, 'accounts/profile-approval-request.html', {
+        'form': form,
+        'title':'Approve'
+        })
 
 # Needs retification, review later.
 @login_required
