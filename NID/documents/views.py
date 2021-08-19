@@ -101,6 +101,18 @@ class DrivingLicenseCreateView(CreateView):
         documents.save()
         return super(DrivingLicenseCreateView, self).form_valid(form)
 
+
+def get_nid_dict(documents):
+    assert documents.national_id is not None
+    citizenship = documents.citizenship
+    driving_license = documents.driving_license
+    nid_dict = {
+        'National ID': str(documents.national_id),
+        'Name': f'{citizenship.first_name} {citizenship.middle_name or ""} {citizenship.last_name}',
+        'Address': f'{citizenship.birth_local}- {citizenship.birth_ward_num}, {citizenship.birth_district}',
+        'Driving License': f'{"-" or {driving_license}}'
+    }
+
 @login_required
 def national_id(request):
     try:
@@ -108,7 +120,7 @@ def national_id(request):
         national_id = documents.national_id
         if national_id:
             return render(request, 'documents/national_id.html', {
-                'documents': documents,
+                'national_id': get_nid_dict(documents),
                 'title': 'National ID',
             })
         else:

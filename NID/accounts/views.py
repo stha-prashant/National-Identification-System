@@ -6,7 +6,10 @@ from django.contrib.auth.forms import PasswordChangeForm
 from accounts.forms import UserRegisterForm, MyProfileForm, ApprovalForm
 
 from accounts.models import Officer
+from documents.models import Documents
+from documents.views import get_nid_dict
 from django.contrib.auth.models import User
+import json
 #from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
@@ -93,7 +96,21 @@ def password_change(request):
 
 @login_required
 def qrcode(request):
-    return render(request, 'accounts/qrcode.html',{
-        'title':'QR Code'
-    })
+    try:
+        documents = Documents.objects.get(user=request.user)
+        national_id = documents.national_id
+        if national_id:                            
+            return render(request, 'documents/qrcode.html', {
+                'national_id': json.dumps(get_nid_dict(documents), indent=4),
+                'title': 'QR Code',
+            })
+        else:
+            return render(request, 'documents/national_id.html', {
+                'messages': ['Your citizenship has not been approved yet. Your National ID and the QR Code will be created automatically once an officer has approved your citizenship.', ],
+                'title': 'QR Code',
+            } )
+    except:
+        return render(request, 'accounts/qrcode.html',{
+            'title':'QR Code'
+        })
 

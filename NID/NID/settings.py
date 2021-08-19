@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'phonenumber_field',
     'multiselectfield',
+    'qr_code',
     'documents.apps.DocumentsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
