@@ -1,6 +1,4 @@
 from django.shortcuts import render, redirect
-# from django.contrib.auth.forms import UserCreationForm
-
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -24,12 +22,17 @@ def register(request):
 
     else:
         form = UserRegisterForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'accounts/register.html', {
+        'form': form,
+        'title':'Register'
+        })
 
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    return render(request, 'accounts/profile.html',{
+        'title':'Profile'
+    })
     # will have to come back here after approval process is done
 
 
@@ -45,7 +48,10 @@ def approvalRequest(request):
             return redirect('profile-request')
     else:
         form = MyProfileForm()
-    return render(request, 'accounts/profile-approval-request.html', {'form': form})
+    return render(request, 'accounts/profile-approval-request.html', {
+        'form': form,
+        'title':'Request'
+        })
 
 # Needs retification, review later.
 @login_required
@@ -62,7 +68,9 @@ def approve(request):
     else:
         form = ApprovalForm()
     return render(request, 'accounts/profile-approve.html', {
-        'form': form})
+        'form': form,
+        'title':'Approve'
+        })
 
 @login_required
 def password_change(request):
@@ -78,11 +86,14 @@ def password_change(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'accounts/change-password.html', {
-        'form': form
+        'form': form,
+        'title':'Change Password'
     })
 
 
 @login_required
 def qrcode(request):
-    return render(request, 'accounts/qrcode.html')
+    return render(request, 'accounts/qrcode.html',{
+        'title':'QR Code'
+    })
 

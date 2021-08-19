@@ -1,7 +1,7 @@
 {% extends "home/base.html" %}
 {% load static %}
 
-{% block title %} 
+{% block titleSection %} 
 
     <link rel="stylesheet" type ="text/css" href="{% static 'accounts/css/profile-header.css' %}">
     <link rel="stylesheet" type ="text/css" href="{% static 'accounts/css/profile-sidenav.css' %}">
@@ -10,31 +10,30 @@
 
     <!-- Link your page specific styling for child pages here-->
     {% block add_page_style %} {% endblock add_page_style%}
-{% endblock title%}
+{% endblock titleSection %}
 
 {% block content%}
 <aside>
 <div class="sidenav">
-<nav>
-                <ol>
-                    <li><a href="{%url 'account-profile'%}"><i class="fa fa-home" style="font-size:24px"></i></a></li>
-                    <li><a href="#"><i class='fas fa-user' style='font-size:24px'></i></a></li>
-                    <li><a href="{% url 'account-logout' %}"><i class="fas fa-power-off" style="font-size:24px"></i></a></li>
-                </ol>
+    <nav>
+            <ol>
+                <li><a href="{%url 'account-profile'%}"><i class="fa fa-home" style="font-size:24px"></i></a></li>
+                <li><a href="{%url 'account-profile'%}"><i class='fas fa-user' style='font-size:24px'></i></a></li>
+                <li><a href="{% url 'account-logout' %}"><i class="fas fa-power-off" style="font-size:24px"></i></a></li>
+            </ol>
             <ul>
-                <li><a href="{%url 'citizenship'%}"><i class="fa fa-address-card" style="font-size:24px"></i>Citizenship</a></li>
-                <li><a href="{%url 'driving_license'%}"><i class="fa fa-automobile" style="font-size:24px"></i>Driving License</a></li>
+                <li><a href="{% url 'citizenship'%}"><i class="fa fa-address-card" style="font-size:24px"></i>Citizenship</a></li>
+                <li><a href="{% url 'driving_license'%}"><i class="fa fa-automobile" style="font-size:24px"></i>Driving License</a></li>
                 {% if user.officerName %}
                 <li><a href="{%url 'profile-approve'%}"><i class="fa fa-check-square" style="font-size:24px"></i>Approve</a></li>
                 {% else %}
                 <li><a href="{%url 'profile-request'%}"><i class="fa fa-file-text" style="font-size:24px"></i>Request</a></li>
                 {% endif %}
                 <li><a href="#"><i class="fa fa-drivers-license-o" style="font-size:24px"></i>National ID</a></li>
-                <li><a href="{%url 'account-profile'%}"><i class="fa fa-user-circle-o" style="font-size:24px"></i>Profile</a></li> <!--Feature to edit contact info-->
                 <li><a href="{%url 'change-password'%}"><i class="fa fa-wrench" style="font-size:24px"></i>Password</a></li>
                 <li><a href="{%url 'qrcode'%}"><i class="fa fa-qrcode" style="font-size:24px"></i>QR Code</a></li>
             </ul>
-</nav>
+    </nav>
 </aside>
 </div>
     <header>
@@ -61,6 +60,7 @@
 
 <div class="main">
 <section>
+
 <!--Some pages will override this block-->
 {% block contact_info %}
     <div class="main-content">

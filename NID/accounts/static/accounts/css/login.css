@@ -1,0 +1,13 @@
+/*
+Styling login page
+*/
+
+body {
+    background-color: #E5E5E5;
+}
+
+main .main-content {
+    width: 80%;
+    margin: auto;
+    border: brown 2px solid;
+}

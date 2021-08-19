@@ -3,12 +3,7 @@
 ### Installing dependencies
 First install conda
 
-Then run following commands in given order from project folder(National-Identification-System folder)
-```bash
-conda create --name DBMS --file NID/envs/requirements.txt
-conda deactivate & conda activate DBMS
-pip install -r NID/envs/pip_requirements.txt
-```
+# Todo:
 
 ### Running the website
 First make all necessary migrations from inside the `NID` folder

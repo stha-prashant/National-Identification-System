@@ -1,24 +1,12 @@
 /*Styling the footer section */
 
-
-/*Flex container for body of homepage.*/
-
 .flex-container-body {
     margin: auto;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-}
-
-
-/*Styling disaster index and sort-by bar*/
-
-.flex-container-body {
     width: 80%;
-    border-top: #f4f4f4 1px solid;
-    background-color: #29383b;
-    color: white;
 }
 
 .flex-container-footer {
@@ -31,7 +19,6 @@
 
 footer {
     background: #37743D;
-    /*background: linear-gradient(to right,#35424a,#0e2433,#22323d,#021c2e,#485157);*/
     color: #ffffff;
     min-height: 60px;
     position: fixed;

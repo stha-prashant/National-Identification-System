@@ -19,7 +19,7 @@ def citizenship(request):
         citizenship_form = CitizenshipForm(data=model_to_dict(documents.citizenship))
         return render(request, 'documents/citizenship.html', {
             'citizenship': citizenship,
-            'citizenship_form': citizenship_form
+            'title':'Citizenship'
         })
     except Documents.DoesNotExist:
         return HttpResponseRedirect(reverse("citizenship_form"))
@@ -57,13 +57,15 @@ def citizenship_form(request):
         else:
             return render(request, 'documents/citizenship.html', {
                 'form': form,
-                'messages': ["Invalid form inputs! Please fix the following errors.",]
+                'messages': ["Invalid form inputs! Please fix the following errors.",],
+                'title':'Citizenship'
             })
 
     else:
         form = CitizenshipForm()
         return render(request, 'documents/citizenship.html', {
-            'form': form
+            'form': form,
+            'title':'Citizenship'
         })
 
 @login_required
@@ -75,11 +77,13 @@ def driving_license(request):
             return HttpResponseRedirect(reverse("driving_license_form"))
         else:
             return render(request, 'documents/driving_license.html', {
-                'driving_license_form': DrivingLicenseForm(data=model_to_dict(driving_license))
+                'driving_license': driving_license,
+                'title':'Driving License'
             })
     except Documents.DoesNotExist:
         return render(request, 'documents/driving_license.html', {
-            'messages': ['Please submit your citizenship first', ]
+            'messages': ['Please submit your citizenship first', ],
+            'title':'Driving License'
         })
     
 @method_decorator(login_required, name='dispatch')
