@@ -1,5 +1,10 @@
 {% extends "accounts/profile-layout.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
+{% block add_page_style %}
+    <link rel="stylesheet" href="{% static 'documents/css/detail.css' %}" type ="text/css">
+{% endblock %}
+
 {% block pageContent %}
 <div class="main">
     <div class="main-content">
@@ -30,6 +35,24 @@
                     </div>
                 </form>
                 {% endif %}
+
+                {% if driving_license_form %}
+                    <table class="table table-striped">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            {% for field in driving_license_form %}
+                                {% if field.value %}
+                                    <tr scope="row">
+                                        <td>{{field.label}}</td>
+                                        <td>{{field.value}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>    
+                {% endif %} 
             </div>
             </main>
         </div>

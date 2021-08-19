@@ -127,5 +127,8 @@ class CitizenshipForm(ModelForm):
             # TODO: don't know what to do yet
             pass
 
-
+class DrivingLicenseForm(ModelForm):
+    class Meta:
+        model = DrivingLicense
+        fields = "__all__"
             

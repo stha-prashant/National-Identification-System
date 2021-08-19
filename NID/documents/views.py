@@ -9,15 +9,17 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 import datetime
 import random
-
+from django.forms.models import model_to_dict
 # Create your views here.
 @login_required
 def citizenship(request):
     try:
         documents = Documents.objects.get(user=request.user)
         citizenship = documents.citizenship
+        citizenship_form = CitizenshipForm(data=model_to_dict(documents.citizenship))
         return render(request, 'documents/citizenship.html', {
-            'citizenship': citizenship
+            'citizenship': citizenship,
+            'citizenship_form': citizenship_form
         })
     except Documents.DoesNotExist:
         return HttpResponseRedirect(reverse("citizenship_form"))
@@ -73,7 +75,7 @@ def driving_license(request):
             return HttpResponseRedirect(reverse("driving_license_form"))
         else:
             return render(request, 'documents/driving_license.html', {
-                'driving_license': driving_license
+                'driving_license_form': DrivingLicenseForm(data=model_to_dict(driving_license))
             })
     except Documents.DoesNotExist:
         return render(request, 'documents/driving_license.html', {

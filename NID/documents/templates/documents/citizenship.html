@@ -1,5 +1,10 @@
 {% extends "accounts/profile-layout.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
+{% block add_page_style %}
+    <link rel="stylesheet" href="{% static 'documents/css/detail.css' %}" type ="text/css">
+{% endblock %}
+
 {% block pageContent %}
 <div class="main">
     <div class="main-content">
@@ -17,18 +22,43 @@
 
             <div class="content-section">
                 {% if form %}
-                <form enctype="multipart/form-data" id="citizenshipForm" data-regions-url="{% url 'ajax_load_regions' %}" data-districts-url="{% url 'ajax_load_districts' %}" data-local-categories-url="{% url 'ajax_load_local_categories' %}" data-locals-url="{% url 'ajax_load_locals' %}" action="{% url 'citizenship_form' %}" method="post">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Citizenship Form</legend>
-                        <!--{{ form.as_p}} -->
-                        {{ form|crispy }}
-                    </fieldset>
-                    <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Submit</button>
-                    <button class="btn btn-outline-info" type="reset">Reset</button>
+                    <form enctype="multipart/form-data" id="citizenshipForm" data-regions-url="{% url 'ajax_load_regions' %}" data-districts-url="{% url 'ajax_load_districts' %}" data-local-categories-url="{% url 'ajax_load_local_categories' %}" data-locals-url="{% url 'ajax_load_locals' %}" action="{% url 'citizenship_form' %}" method="post">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Citizenship Form</legend>
+                            <!--{{ form.as_p}} -->
+                            {{ form|crispy }}
+                        </fieldset>
+                        <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Submit</button>
+                        <button class="btn btn-outline-info" type="reset">Reset</button>
+                        </div>
+                    </form>
+                {% endif %}
+                {% if citizenship %}
+                    <div class="document_img">
+                        {% if citizenship.face_photo.url %}<img id="face_photo" src="{{citizenship.face_photo.url}}">{% endif %}
+                        {% if citizenship.photo_front.url %}<img id="citizenship_front" src = "{{citizenship.photo_front.url}}">{% endif %}
+                        {% if citizenship.photo_back.url %}<img id="citizenship_back" src = "{{citizenship.photo_back.url}}">{% endif %}
                     </div>
-                </form>
+                {% endif %}
+
+                {% if citizenship_form %}
+                    <table class="table table-striped">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            {% for field in citizenship_form %}
+                                {% if field.value %}
+                                    <tr scope="row">
+                                        <td>{{field.label}}</td>
+                                        <td>{{field.value}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>    
                 {% endif %}
             </div>
             
