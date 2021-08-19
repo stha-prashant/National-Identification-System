@@ -100,4 +100,25 @@ class DrivingLicenseCreateView(CreateView):
         documents.driving_license = self.object
         documents.save()
         return super(DrivingLicenseCreateView, self).form_valid(form)
+
+@login_required
+def national_id(request):
+    try:
+        documents = Documents.objects.get(user=request.user)
+        national_id = documents.national_id
+        if national_id:
+            return render(request, 'documents/national_id.html', {
+                'documents': documents,
+                'title': 'National ID',
+            })
+        else:
+            return render(request, 'documents/national_id.html', {
+                'messages': ['Your citizenship has not been approved yet. Your National ID will be created automatically once an officer has approved your citizenship.', ],
+                'title': 'National ID',
+            } )
+    except Documents.DoesNotExist:
+        return render(request, 'documents/national_id.html', {
+            'messages': ['Please submit your citizenship first', ],
+            'title': 'National ID',
+        })
         
