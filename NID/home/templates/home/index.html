@@ -42,10 +42,11 @@
 
     
     <div class="flex-container-body">
-
+        {% block home %}
           <div class="flex-container-banner">
-                <img src="{% static 'home/img/banner.png' %}" height="500" weight="500">
+                <img src="{% static 'home/img/temp-banner.png' %}" height="500" weight="500">
           </div>
+          {% endblock home %}
 
             <!--Footer section of the page-->
             <footer>

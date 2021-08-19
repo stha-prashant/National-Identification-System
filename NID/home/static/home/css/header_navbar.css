@@ -12,10 +12,6 @@ Header stylingsheet
 body {
     font-family: Serif, Arial, Helvetica, sans-serif;
     font-size: 15px;
-    line-height: 1.5;
-    padding: 0;
-    margin: 0;
-    background-color: #ffffff;
 }
 
 
@@ -125,9 +121,15 @@ header .navbar {
     align-content: center;
 }
 
+nav ul {
+    padding: 15px;
+}
+
 nav ul li {
     list-style-type: none;
     padding: 10px;
+    border-radius: 15px;
+    margin-left: 15px;
 }
 
 
@@ -170,8 +172,3 @@ a:active {
 
 
 /*Project banner*/
-
-.flex-container-banner {
-    width: 100%;
-    overflow-x: hidden;
-}
