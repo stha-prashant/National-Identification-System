@@ -19,6 +19,7 @@ def citizenship(request):
         citizenship_form = CitizenshipForm(data=model_to_dict(documents.citizenship))
         return render(request, 'documents/citizenship.html', {
             'citizenship': citizenship,
+            'citizenship_form': citizenship_form,
             'title':'Citizenship'
         })
     except Documents.DoesNotExist:
@@ -77,7 +78,7 @@ def driving_license(request):
             return HttpResponseRedirect(reverse("driving_license_form"))
         else:
             return render(request, 'documents/driving_license.html', {
-                'driving_license': driving_license,
+                'driving_license_form': DrivingLicenseForm(data=model_to_dict(driving_license)),
                 'title':'Driving License'
             })
     except Documents.DoesNotExist:

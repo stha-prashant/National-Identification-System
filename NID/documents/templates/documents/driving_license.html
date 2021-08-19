@@ -37,6 +37,9 @@
                 {% endif %}
 
                 {% if driving_license_form %}
+                    <div class="document_img">
+                        {% if driving_license_form.document_photo.url %}<img id="license_photo" src="{{ driving_license_form.document_photo.url }}">{% endif %}
+                    </div>
                     <table class="table table-striped">
                         <thead>
 
