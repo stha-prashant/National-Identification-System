@@ -1,18 +1,34 @@
 {% extends "accounts/profile-layout.html" %}
-{%load static%}
-
+{% load static %}
+{% load qr_code %}
 {% block add_page_style %} 
     <!-- Link your page specific styles here-->
 
-{% endblock add_page_style%}
+{% endblock add_page_style %}
 
-
-{% block pageContent%}
+{% block pageContent %}
 <div class="main">
-  <div class="main-content">
-      <div class="personal_details" id="info-box">
-                <!--Render form here-->   
+    <div class="main-content">
+        <div class="personal_details" id="info-box">
+            <main role="main" class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <legend class="border-bottom mb-4">QR Code</legend>
+                        <div class="content-section">
+                            {% if national_id %}
+                                {% qr_from_text national_id size="M" %}
+                            {% endif %}
+                        </div>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor%}
+                        {% endif %}
+                    </div>
+            </main>
         </div>
     </div>
 </div>
-{% endblock pageContent%}
+{% endblock pageContent %}

@@ -1,10 +1,15 @@
 # National-Identification-System
 <hr>
+
 ### Installing dependencies
-First install conda
+First install [conda](https://conda.io/projects/conda/en/latest/user-guide/install/linux.html)
 
-# Todo:
-
+Then run following commands in given order from project folder(National-Identification-System folder)
+```bash
+conda create --name DBMS --file NID/envs/requirements.txt
+conda deactivate && conda deactivate && conda activate DBMS
+pip install -r NID/envs/pip_requirements.txt
+```
 ### Running the website
 First make all necessary migrations from inside the `NID` folder
 ```

@@ -19,6 +19,7 @@ def citizenship(request):
         citizenship_form = CitizenshipForm(data=model_to_dict(documents.citizenship))
         return render(request, 'documents/citizenship.html', {
             'citizenship': citizenship,
+            'citizenship_form': citizenship_form,
             'title':'Citizenship'
         })
     except Documents.DoesNotExist:
@@ -77,7 +78,7 @@ def driving_license(request):
             return HttpResponseRedirect(reverse("driving_license_form"))
         else:
             return render(request, 'documents/driving_license.html', {
-                'driving_license': driving_license,
+                'driving_license_form': DrivingLicenseForm(data=model_to_dict(driving_license)),
                 'title':'Driving License'
             })
     except Documents.DoesNotExist:
@@ -99,4 +100,37 @@ class DrivingLicenseCreateView(CreateView):
         documents.driving_license = self.object
         documents.save()
         return super(DrivingLicenseCreateView, self).form_valid(form)
+
+
+def get_nid_dict(documents):
+    assert documents.national_id is not None
+    citizenship = documents.citizenship
+    driving_license = documents.driving_license
+    nid_dict = {
+        'National ID': str(documents.national_id),
+        'Name': f'{citizenship.first_name} {citizenship.middle_name or ""} {citizenship.last_name}',
+        'Address': f'{citizenship.birth_local}- {citizenship.birth_ward_num}, {citizenship.birth_district}',
+        'Driving License': f'{"-" or {driving_license}}'
+    }
+
+@login_required
+def national_id(request):
+    try:
+        documents = Documents.objects.get(user=request.user)
+        national_id = documents.national_id
+        if national_id:
+            return render(request, 'documents/national_id.html', {
+                'national_id': get_nid_dict(documents),
+                'title': 'National ID',
+            })
+        else:
+            return render(request, 'documents/national_id.html', {
+                'messages': ['Your citizenship has not been approved yet. Your National ID will be created automatically once an officer has approved your citizenship.', ],
+                'title': 'National ID',
+            } )
+    except Documents.DoesNotExist:
+        return render(request, 'documents/national_id.html', {
+            'messages': ['Please submit your citizenship first', ],
+            'title': 'National ID',
+        })
         

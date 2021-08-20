@@ -1,0 +1,45 @@
+{% extends "accounts/profile-layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block add_page_style %}
+    <link rel="stylesheet" href="{% static 'documents/css/detail.css' %}" type ="text/css">
+{% endblock %}
+
+{% block pageContent %}
+<div class="main">
+    <div class="main-content">
+        <div class="personal_details" id="info-box">
+            <main role="main" class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <legend class="border-bottom mb-4">National ID</legend>
+                        <div class="content-section">
+                            {% if national_id %}
+                                <table class="table table-striped">
+                                    <thead>
+
+                                    </thead>
+                                    <tbody>
+                                        {% for key, value in national_id.items %}
+                                            <tr scope="row">
+                                                <td>{{key}}</td>
+                                                <td>{{value}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>                                  
+                            {% endif %}
+                        </div>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor%}
+                        {% endif %}
+                    </div>
+            </main>
+        </div>
+    </div>
+</div>
+{% endblock pageContent %}

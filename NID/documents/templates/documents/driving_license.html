@@ -20,12 +20,12 @@
                         {% endfor%}
                     {% endif %}
 
-            <div class="content-section">
+            <div class="content-section">                        
+                <legend class="border-bottom mb-4">Driving License Form</legend>
                 {% if form %}
                 <form enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Driving License Form</legend>
                         <!--{{ form.as_p}} -->
                         {{ form|crispy }}
                     </fieldset>
@@ -37,6 +37,9 @@
                 {% endif %}
 
                 {% if driving_license_form %}
+                    <div class="document_img">
+                        {% if driving_license_form.document_photo.url %}<img id="license_photo" src="{{ driving_license_form.document_photo.url }}">{% endif %}
+                    </div>
                     <table class="table table-striped">
                         <thead>
 
