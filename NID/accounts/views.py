@@ -5,12 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from accounts.forms import UserRegisterForm, MyProfileForm, ApprovalForm
 
-from accounts.models import Officer
-from documents.models import Documents
+from accounts.models import *
+from documents.models import *
 from documents.views import get_nid_dict
 from django.contrib.auth.models import User
 import json
-#from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
+from django.forms import model_to_dict
 
 # Create your views here.
 
@@ -30,13 +31,39 @@ def register(request):
         'title':'Register'
         })
 
+def profileDetail(request):
+    try:
+        doc = Documents.objects.get(user=request.user)
+        cit = doc.citizenship
+        mydetailProfile = {
+            'Full Name': f'{cit.first_name} {cit.middle_name or ""} {cit.last_name}',
+            'Date of Birth': f'{cit.dob_bs} B.S.',
+            'Gender': f'{cit.gender}',
+            'Permanent Address':f'{cit.perma_region}, {cit.perma_district} District, {cit.perma_local}, Ward : {cit.perma_ward_no}',
+            'Father\'s Name': f'{cit.father_first_name} {cit.father_middle_name or ""} {cit.father_last_name}',
+            'Mother\'s Name':f'{cit.mother_first_name or ""} {cit.mother_middle_name or ""} {cit.mother_last_name or ""}',
+            'Identity Number':f'{cit.citizenship_no}',
+            'ID Issued Date':f'{cit.issue_date_bs}',
+            'ID Issued From':f'{cit.perma_district} District'
+
+        }
+        return mydetailProfile
+    except:
+        raise ObjectDoesNotExist
+
+
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html',{
-        'title':'Profile'
-    })
-    # will have to come back here after approval process is done
+    try:
+        mydetailProfile = profileDetail(request)
+        context = {'title':'Profile',
+                    'mydetails':mydetailProfile}
+        return render(request, 'accounts/profile.html', context=context)
+    except ObjectDoesNotExist:
+        context = {'title':'Profile',
+                    'message':'Please submit your documents first.'}
+        return render(request, 'accounts/profile.html', context=context)
 
 
 @login_required

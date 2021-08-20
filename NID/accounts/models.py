@@ -9,8 +9,8 @@ import uuid
 # Create your models here.
 class Officer(models.Model):
     account = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, related_name="officerName")
-    office = models.CharField(max_length=50)
-    office_address = models.ForeignKey(District, null=False, on_delete=models.PROTECT)
+    office = models.CharField(max_length=50, verbose_name='myOffice')
+    office_address = models.ForeignKey(District, null=False, on_delete=models.PROTECT, related_name="officeAddress")
 
 
     def __str__(self):

@@ -33,7 +33,7 @@ class Citizenship(models.Model):
     id = models.AutoField(primary_key=True)
     citizenship_no = models.CharField(max_length=64, blank=False, null=False)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    approval = models.ForeignKey(Approval, on_delete=models.PROTECT, null=True, blank=True, related_name="citizenships")
+    approval = models.OneToOneField(Approval, on_delete=models.PROTECT, null=True, blank=True, related_name="citizenships")
     photo_front = models.FileField(upload_to="citizenship/", blank=True, null=True)
     photo_back = models.FileField(upload_to="citizenship/", blank=True, null=True)
     first_name = models.CharField(max_length=32, blank=False)
@@ -137,7 +137,7 @@ class DrivingLicense(models.Model):
     issue_centre = models.ForeignKey(DrivingLicenseIssueCentre, on_delete=models.PROTECT, blank=True, null=True, related_name="licenses")
     blood_group = models.CharField(choices=BLOOD_GROUP_CHOICES, max_length=3)
     license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=32) 
-    approval = models.ForeignKey(Approval, on_delete=models.CASCADE, related_name="licenses", blank=True, null=True) 
+    approval = models.OneToOneField(Approval, on_delete=models.CASCADE, related_name="licenses", blank=True, null=True) 
     document_photo = models.FileField(upload_to="driving_license/", blank=True, null=True)
 
     def __str__(self):
@@ -148,6 +148,6 @@ class Documents(models.Model):
     citizenship = models.ForeignKey(Citizenship, on_delete=models.CASCADE, related_name="documents")
     driving_license = models.ForeignKey(DrivingLicense, on_delete=models.PROTECT, related_name="documents", blank=True, null=True)
     national_id = models.PositiveIntegerField(blank=True, null=True) 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="documents")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key= True, on_delete=models.CASCADE, related_name="documents")
 
     

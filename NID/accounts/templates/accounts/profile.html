@@ -3,19 +3,19 @@
 <div class="main">
   <div class="main-content">
       <div class="personal_details" id="info-box">
+
+      {% if message %} {{message}} {%endif%}
+      {% if mydetails %}
       <table>
       <th>Profile Details</th>
-        <tr><td>Verified:</td><td>  </td></tr>
-        <tr><td>Role:</td><td>  </td></tr>
-        <tr><td>Date of Birth:</td><td>  </td></tr>
-        <tr><td>Gender:</td><td>  </td></tr>
-        <tr><td>Address:</td><td>  </td></tr>
-        <tr><td>Father's Name:</td><td>  </td></tr>
-        <tr><td>Mother's Name:</td><td>  </td></tr>
-        <tr><td>Identity Number:</td><td>  </td></tr>
-        <tr><td>Identity Issue Date:</td><td>  </td></tr>
-        <tr><td>Identity Issued From:</td><td>  </td></tr>
+        {% for key, value in mydetails.items %}
+          <tr>
+            <td> {{key}} </td> <td> {{value}} </td>
+          </tr>
+        {% endfor %}
         </table>
+        {% else%}
+        {% endif %}
         </div>
     </div>
 </div>
