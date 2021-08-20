@@ -13,15 +13,11 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'password1', 'password2']
 class MyProfileForm(forms.ModelForm):
-    email = forms.EmailField(required=False)
-    phone = PhoneNumberField()
-
     class Meta:
         model = MyPersonalDetail
-        fields = ['email','phone']
-
+        fields = ['email','phone','profilePicture']
 
 class ApprovalForm(forms.ModelForm):
        class Meta:
         model = Approval
-        fields = ['approved_document']
+        fields = []

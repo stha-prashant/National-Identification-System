@@ -145,9 +145,9 @@ class DrivingLicense(models.Model):
 
 
 class Documents(models.Model):
-    citizenship = models.ForeignKey(Citizenship, on_delete=models.CASCADE, related_name="documents")
-    driving_license = models.ForeignKey(DrivingLicense, on_delete=models.PROTECT, related_name="documents", blank=True, null=True)
+    citizenship = models.OneToOneField(Citizenship, on_delete=models.CASCADE, related_name="documents")
+    driving_license = models.OneToOneField(DrivingLicense, on_delete=models.PROTECT, related_name="documents", blank=True, null=True)
     national_id = models.PositiveIntegerField(blank=True, null=True) 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key= True, on_delete=models.CASCADE, related_name="documents")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key= True,on_delete=models.CASCADE, related_name="documents")
 
     

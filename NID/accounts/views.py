@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms import model_to_dict
+from accounts.profile import contacts
 
 # Create your views here.
 
@@ -55,16 +56,46 @@ def profileDetail(request):
 
 @login_required
 def profile(request):
+    mycontacts  = contacts(request)
     try:
         mydetailProfile = profileDetail(request)
         context = {'title':'Profile',
                     'mydetails':mydetailProfile}
+        context.update(mycontacts)
         return render(request, 'accounts/profile.html', context=context)
     except ObjectDoesNotExist:
         context = {'title':'Profile',
                     'message':'Please submit your documents first.'}
+        context.update(mycontacts)
         return render(request, 'accounts/profile.html', context=context)
 
+
+@login_required
+def profile_update(request):
+    mycontactDetails = contacts(request)
+
+    # Just for comfirmation, contacts() call does the job.
+    try:
+        mycontact = MyPersonalDetail.objects.get(user=request.user)
+        if request.method == 'POST':
+            p_form = MyProfileForm(request.POST, request.FILES, instance=mycontact)
+            if  p_form.is_valid():
+                p_form.save()
+                messages.success(request, f'Your account has been updated!')
+                return redirect('profile-update')
+        else:
+            p_form = MyProfileForm(instance=mycontact)
+
+        context = {
+            'title':'Update Contacts',
+            'form':p_form
+        }
+
+        context.update(mycontactDetails)
+        return render(request, 'accounts/profile-update.html', context=context)
+    except ObjectDoesNotExist:
+        MyPersonalDetail(user=request.user).save()
+        return redirect('profile-update')
 
 @login_required
 def approvalRequest(request):
@@ -104,6 +135,7 @@ def approve(request):
 
 @login_required
 def password_change(request):
+    mycontacts  = contacts(request)
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -115,10 +147,13 @@ def password_change(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'accounts/change-password.html', {
+    context = {
         'form': form,
         'title':'Change Password'
-    })
+    }
+
+    context.update(mycontacts)
+    return render(request, 'accounts/change-password.html', context=context)
 
 
 @login_required

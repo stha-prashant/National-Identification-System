@@ -18,7 +18,7 @@
     <nav>
             <ol>
                 <li><a href="{%url 'account-profile'%}"><i class="fa fa-home" style="font-size:24px"></i></a></li>
-                <li><a href="{%url 'account-profile'%}"><i class='fas fa-user' style='font-size:24px'></i></a></li>
+                <li><a href="{%url 'profile-update'%}"><i class='fas fa-user' style='font-size:24px'></i></a></li>
                 <li><a href="{% url 'account-logout' %}"><i class="fas fa-power-off" style="font-size:24px"></i></a></li>
             </ol>
             <ul>
@@ -66,13 +66,13 @@
     <div class="main-content">
         <div class="myinfo">
             <div class="profile-picture">
-                <img class="account-img" src="{% static 'accounts/img/myface.jpg' %}">
+                <img class="account-img" src="{{image}}">
             </div>
             <div class="contact-info" id="info-box">
                 <ul>
                     <li>username: {{ user.username  }}
-                    <li>Email: </li>
-                    <li>Phone : </li>
+                    <li>Email: {% if email %} {{ email }} {% endif %}</li>
+                    <li>Phone : {% if phone %} {{ phone }} {% endif %} </li>
                     {% if user.officerName %}
                     <li>Role: Officer </li>
                     {% else %}

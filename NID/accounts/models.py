@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from phonenumber_field.modelfields import PhoneNumberField
+from PIL import Image
 
 from address.models import District
 import uuid
@@ -17,15 +18,22 @@ class Officer(models.Model):
           return f"{self.account} working in {self.office}, District: {self.office_address}"
 
 class MyPersonalDetail(models.Model):
-    request_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    posted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='requested_by')
-    email = models.EmailField(verbose_name='Email', null=True)
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, related_name='user_detail')
+    email = models.EmailField(verbose_name='Email', blank=True, null=True)
     phone = PhoneNumberField(verbose_name='Phone Number', null=True, blank= True, unique=True)
+    profilePicture = models.ImageField(default='default.png', upload_to='accounts')
 
 
     def __str__(self):
-        return f"Approval Request Email {self.email} by {self.posted_by.username}"
+        return f"Email: {self.email} Phone {self.phone} Username: {self.user.username}"
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.profilePicture.path)
+        if img.height > 200 or img.width > 200:
+            output_size = (200, 200)
+            img.thumbnail(output_size)
+            img.save(self.profilePicture.path)
 
 class Approval(models.Model):
     documentTypes=[
@@ -37,7 +45,6 @@ class Approval(models.Model):
     approval_type = models.CharField(max_length=3, choices=documentTypes, default='CIT')
     # Officers can be fired.
     approved_by = models.ForeignKey(Officer, null=False, on_delete=models.DO_NOTHING, related_name="approvingOfficer")
-    approved_document = models.OneToOneField(MyPersonalDetail, on_delete=models.CASCADE, related_name="ApprovalNumber")
 
     def __str__(self):
         doctType = {
