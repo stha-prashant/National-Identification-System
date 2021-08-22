@@ -3,11 +3,11 @@ Styling login page
 */
 
 body {
-    background-color: #fafafa;
+    background-color: #ffffff;
     font-family: Montserrat;
 }
 
 main .content-section {
-    width: 110%;
+    width: 60%;
     margin: auto;
 }

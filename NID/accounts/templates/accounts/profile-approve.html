@@ -1,9 +1,20 @@
 {% extends "accounts/profile-layout.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
+
+{% block add_page_style %}
+    <link rel="stylesheet" href="{% static 'documents/css/detail.css' %}" type ="text/css">
+{% endblock %}
+
+{% block contact_info %} {% endblock contact_info %}
+
 {% block pageContent%}
 <div class="main">
   <div class="main-content">
       <div class="personal_details" id="info-box">
+            <a href="{% url 'profile-approve'%}" class="btn btn-info">Citizenship</a>   
+            <a href="{% url 'license-approve'%}" class="btn btn-info">Driving License</a> <br><br>
+            
             <main role="main" class="container">
                 <div class="">
                     <div class="col-md-8">
@@ -14,19 +25,66 @@
                             </div>
                         {% endfor%}
                     {% endif %}
-                <div class="content-section">
-                 <form method="POST">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Approve the documents</legend>
-                        <!--{{ form.as_p}} -->
-                        {{ form|crispy }}
-                    </fieldset>
+                    <div class="content-section">               
+                    {% if notice %} {{notice}}
+                    {% else %}
+                     <form method="POST">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Approve/Discard</legend>
+                                {% if document %}
+                                <div class="document_img">
+                                    {% if document.face_photo.url %}<img id="face_photo" src="{{document.face_photo.url}}">{% endif %}
+                                    {% if document.photo_front.url %}<img id="citizenship_front" src = "{{document.photo_front.url}}">{% endif %}
+                                    {% if document.photo_back.url %}<img id="citizenship_back" src = "{{document.photo_back.url}}">{% endif %}
+                                </div>
+                                {% endif %}
+
+                                {% if license %}
+                                <div class="document_img">
+                                    {% if license.document_photo.url %} <img src="{{ license.document_photo.url }}">{% endif %}
+                                </div>
+                                {% endif %}
+
+
+                                <br>
+                                {% if username %} Username: {{username}} {%endif%}
+                                <br>
+                                {{ form }}
+
+                                {% if cit_data %}
+                                  <table class="table table-striped">
+                                  <th>Citizenship Details</th>
+                                        {% for key, value in cit_data.items %}
+                                        <tr>
+                                            <td style="width:200px;"> {{key}} </td> <td style="width:500px;"> {{value}} </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                {% endif %}
+
+                                {% if license_data %}
+                                  <table class="table table-striped">
+                                  <th>Driving License</th>
+                                        {% for key, value in license_data.items %}
+                                        <tr>
+                                            <td style="width:200px;"> {{key}} </td> <td style="width:500px;"> {{value}} </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                {% endif %} 
+
+
+                        </fieldset>
                     <div class="form-group">
-                        <button class="btn btn-outline-info" type="submit">Submit</button>
+                        <button class="btn btn-success" type="submit">Approve</button>
+                        {%if cit_data %}<a href="{%url 'deny-profile' %}" class="btn btn-danger">Deny</a> {% endif %}
+                        {%if license %}<a href="{%url 'deny-license' %}" class="btn btn-danger">Deny</a> {% endif %}
                     </div>
-                </form>
-            </div>
+                    </form>
+
+                    {% endif %}
+                </div>
         </main>
     </div>
 </div>

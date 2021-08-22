@@ -26,8 +26,6 @@
                 <li><a href="{% url 'driving_license'%}"><i class="fa fa-automobile" style="font-size:24px"></i>Driving License</a></li>
                 {% if user.officerName %}
                 <li><a href="{%url 'profile-approve'%}"><i class="fa fa-check-square" style="font-size:24px"></i>Approve</a></li>
-                {% else %}
-                <li><a href="{%url 'profile-request'%}"><i class="fa fa-file-text" style="font-size:24px"></i>Request</a></li>
                 {% endif %}
                 <li><a href="{%url 'national_id'%}"><i class="fa fa-drivers-license-o" style="font-size:24px"></i>National ID</a></li>
                 <li><a href="{%url 'change-password'%}"><i class="fa fa-wrench" style="font-size:24px"></i>Password</a></li>
@@ -70,13 +68,22 @@
             </div>
             <div class="contact-info" id="info-box">
                 <ul>
-                    <li>username: {{ user.username  }}
+                    <li>username: {{ user.username  }} 
+                        {% if user.documents.citizenship.approval %} <i class="fas fa-check-circle" style="color:green;font-size:18px;"></i> 
+                        {% else %} <i class="fas fa-exclamation-circle" style="color:orange;font-size:18px;"></i> 
+                        {%endif%}</li>
+                    
                     <li>Email: {% if email %} {{ email }} {% endif %}</li>
                     <li>Phone : {% if phone %} {{ phone }} {% endif %} </li>
                     {% if user.officerName %}
-                    <li>Role: Officer </li>
+                    <li>Role: Officer   <i class="fas fa-user-check" style="color:green;font-size:18px;"></i> </li>
                     {% else %}
-                    <li>Role: Citizen </li>
+                    <li>Role: Citizen 
+                         {% if user.documents.citizenship.approval %} <i class="fas fa-user-check" style="color:green;font-size:18px;"></i> 
+                        {% else %} <i class="fas fa-question-circle" style="color:orange;font-size:18px;"></i> 
+                        {%endif%}</li>
+                    
+                    </li>
                     {% endif %}
                 </ul>
             </div>

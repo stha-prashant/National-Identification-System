@@ -1,6 +1,11 @@
-{% extends "home/base.html" %}
+{% extends "home/index.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
-{% block content %}
+{% block home %}
+
+{% block indexTitle %}
+    <link rel="stylesheet" href="{% static 'accounts/css/register.css' %}" type ="text/css">
+{% endblock indexTitle %}
 
 <main role="main" class="container">
     <div class="content-section">
@@ -8,7 +13,6 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Register Today</legend>
-                <!--{{ form.as_p}} -->
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
@@ -16,12 +20,11 @@
             </div>
 
             <div class="border-top pt-3">
-                <small class="text-muted">
-                    Already have an account? <a class="ml-2" href="{% url 'account-login'%}">Sign In</a>
+                <small class="text-primary">
+                    Already have an account? <a style="color:#349ded;" class="link-primary" href="{% url 'account-login'%}">Sign In</a>
                 </small>
             </div>
         </form>
     </div>
   </main>
-
-{% endblock content %}
+{% endblock home %}

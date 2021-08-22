@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 import datetime
 import random
 from django.forms.models import model_to_dict
+from accounts.profile import contacts
 # Create your views here.
 @login_required
 def citizenship(request):
@@ -109,28 +110,36 @@ def get_nid_dict(documents):
     nid_dict = {
         'National ID': str(documents.national_id),
         'Name': f'{citizenship.first_name} {citizenship.middle_name or ""} {citizenship.last_name}',
-        'Address': f'{citizenship.birth_local}- {citizenship.birth_ward_num}, {citizenship.birth_district}',
-        'Driving License': f'{"-" or {driving_license}}'
+        'Address': f'{citizenship.birth_local}- {citizenship.birth_ward_no}, {citizenship.birth_district}',
+        'Driving License': f'{driving_license or "-"}'
     }
+    return nid_dict
 
 @login_required
 def national_id(request):
+    mycontacts  = contacts(request)
     try:
         documents = Documents.objects.get(user=request.user)
         national_id = documents.national_id
         if national_id:
-            return render(request, 'documents/national_id.html', {
-                'national_id': get_nid_dict(documents),
+            context = {
+                 'national_id': get_nid_dict(documents),
                 'title': 'National ID',
-            })
+            }
+            context.update(mycontacts)
+            return render(request, 'documents/national_id.html',context=context)
         else:
-            return render(request, 'documents/national_id.html', {
+            context={
                 'messages': ['Your citizenship has not been approved yet. Your National ID will be created automatically once an officer has approved your citizenship.', ],
                 'title': 'National ID',
-            } )
+            }
+            context.update(mycontacts)
+            return render(request, 'documents/national_id.html', context=context)
     except Documents.DoesNotExist:
-        return render(request, 'documents/national_id.html', {
-            'messages': ['Please submit your citizenship first', ],
+        context={
+             'messages': ['Please submit your citizenship first', ],
             'title': 'National ID',
-        })
+
+        }
+        return render(request, 'documents/national_id.html',context=context)
         

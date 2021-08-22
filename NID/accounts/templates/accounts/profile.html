@@ -6,8 +6,16 @@
 
       {% if message %} {{message}} {%endif%}
       {% if mydetails %}
-      <table>
+      <table class="table table-striped ">
       <th>Profile Details</th>
+      <tr>
+      <td>Verified:</td>
+      <td>
+        {% if user.documents.citizenship.approval %} <i class="fas fa-check-circle" style="color:green;font-size:18px;"></i> 
+        {% else %} <i class="fas fa-times-circle" style="color:orange;font-size:18px;"></i> 
+        {%endif%}
+      </td>
+      </tr>
         {% for key, value in mydetails.items %}
           <tr>
             <td> {{key}} </td> <td> {{value}} </td>

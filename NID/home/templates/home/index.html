@@ -5,6 +5,8 @@
     <!--Linking CSS stylesheets-->
     <link rel="stylesheet" href="{% static 'home/css/header_navbar.css' %}" type ="text/css">
     <link rel="stylesheet" href="{% static 'home/css/footer.css' %}" type ="text/css">
+
+    {% block indexTitle %} {% endblock indexTitle %}
 {% endblock titleSection %}
 
 {% block content %}
@@ -33,18 +35,19 @@
                 </div>
         </div>
     </header>
-
-    <div class="navigationbar">
-        <div class="navlink"><a href="{% url 'home-index' %}">Home</a></div>
-        <div class="navlink"><a href="#">About</a></div>
-        <div class="navlink"><a href="#">FAQ</a></div>
+    <div class="flex-container-body">
+        <div class="navigationbar">
+            <div class="navlink"><a href="{% url 'home-index' %}">Home</a></div>
+            <div class="navlink"><a href="#">About</a></div>
+            <div class="navlink"><a href="#">FAQ</a></div>
+        </div>
     </div>
 
     
     <div class="flex-container-body">
         {% block home %}
           <div class="flex-container-banner">
-                <img src="{% static 'home/img/temp-banner.png' %}" height="500" weight="500">
+                <img src="{% static 'home/img/temp-banner.png' %}" class="banner">
           </div>
           {% endblock home %}
 
@@ -73,9 +76,9 @@
                             <li>Privacy</li>
                             <li>Feedback</li>
                         </ul>
-
                     </div>
                 </div>
-              </footer>
+            </footer>
         </div>
+    </div>
 {% endblock content %}

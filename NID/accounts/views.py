@@ -4,15 +4,18 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from accounts.forms import UserRegisterForm, MyProfileForm, ApprovalForm
+from django.core import serializers
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from accounts.models import *
 from documents.models import *
-from documents.views import get_nid_dict
+from documents.views import citizenship, driving_license, get_nid_dict
 from django.contrib.auth.models import User
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms import model_to_dict
-from accounts.profile import contacts
+from accounts.profile import contacts, profileDetail, get_national_ID, CitizenshipDetail, DrivingLicenseDetails
 
 # Create your views here.
 
@@ -31,27 +34,6 @@ def register(request):
         'form': form,
         'title':'Register'
         })
-
-def profileDetail(request):
-    try:
-        doc = Documents.objects.get(user=request.user)
-        cit = doc.citizenship
-        mydetailProfile = {
-            'Full Name': f'{cit.first_name} {cit.middle_name or ""} {cit.last_name}',
-            'Date of Birth': f'{cit.dob_bs} B.S.',
-            'Gender': f'{cit.gender}',
-            'Permanent Address':f'{cit.perma_region}, {cit.perma_district} District, {cit.perma_local}, Ward : {cit.perma_ward_no}',
-            'Father\'s Name': f'{cit.father_first_name} {cit.father_middle_name or ""} {cit.father_last_name}',
-            'Mother\'s Name':f'{cit.mother_first_name or ""} {cit.mother_middle_name or ""} {cit.mother_last_name or ""}',
-            'Identity Number':f'{cit.citizenship_no}',
-            'ID Issued Date':f'{cit.issue_date_bs}',
-            'ID Issued From':f'{cit.perma_district} District'
-
-        }
-        return mydetailProfile
-    except:
-        raise ObjectDoesNotExist
-
 
 
 @login_required
@@ -97,41 +79,140 @@ def profile_update(request):
         MyPersonalDetail(user=request.user).save()
         return redirect('profile-update')
 
-@login_required
-def approvalRequest(request):
-    if request.method == 'POST':
-        form = MyProfileForm(request.POST)
-        if form.is_valid():
-            form.save(commit=False)
-            form.instance.posted_by = request.user
-            form.save()
-            messages.success(request, f'Submitted your request.')
-            return redirect('profile-request')
-    else:
-        form = MyProfileForm()
-    return render(request, 'accounts/profile-approval-request.html', {
-        'form': form,
-        'title':'Request'
-        })
+# Not a  good idea!
+cit_id = 1
 
-# Needs retification, review later.
 @login_required
 def approve(request):
-    if request.method == 'POST':
-        form = ApprovalForm(request.POST)
-        if form.is_valid():
-            form.save(commit=False)
-            usrType = User.objects.get(username=request.user.username)
-            form.instance.approved_by = Officer.objects.get(account=usrType) 
-            form.save()
-            messages.success(request, f'Request Approved')
-            return redirect('profile-approve')    
+    off = Officer.objects.get(account=request.user.id)
+    district = off.office_address
+    cit = Citizenship.objects.filter(perma_district__id=district.pk, approval__isnull=True).first()
+
+    context={
+            'title':'Approval'
+        }
+
+    if cit is None:
+        context={
+            'notice':'No documents left for approval.',
+            'title':'Approval'
+
+        }
     else:
-        form = ApprovalForm()
-    return render(request, 'accounts/profile-approve.html', {
-        'form': form,
+        #cit_data = serializers.serialize("json", cit)
+        cit_data = CitizenshipDetail(cit)
+        doc = Documents.objects.get(citizenship__id = cit.pk) # try?
+        usr = doc.user.username
+        documnt = doc.citizenship
+        global cit_id
+        cit_id = cit.pk
+        #request.session['cit']=cit
+
+        if request.method == 'POST':
+            form = ApprovalForm(request.POST)
+            if form.is_valid():
+                form.save(commit=False)
+                usrType = User.objects.get(username=request.user.username)
+                form.instance.approved_by = Officer.objects.get(account=usrType)
+                form.instance.approval_type = 'CIT'
+                approve = form.save()
+                cit.approval = approve
+                cit.save()
+                doc = Documents.objects.get(citizenship__id=cit.pk)
+                doc.national_id = get_national_ID(district.pk) # try
+                doc.save()
+                messages.success(request, f'Citizenship Approved for {usr}')
+
+                #license = doc.driving_license
+                # if license:
+                #     pass
+                
+                # else:
+                return redirect('profile-approve')
+
+        else:
+            form = ApprovalForm()
+        
+        f={
+            'form':form,
+            'cit_data':cit_data,
+            'username':usr,
+            'document':documnt
+        }
+
+        context.update(f)
+    return render(request, 'accounts/profile-approve.html', context = context)
+
+@login_required
+def denyApproval(request):
+    global cit_id
+    citizenship = Citizenship.objects.get(id=cit_id)
+    #doc = Documents.objects.get(citizenship__id =cit_id)
+    citizenship.delete()
+    #cit = request.session.get('cit')
+    return HttpResponseRedirect(reverse('profile-approve'))
+
+dri_id=1
+@login_required
+def approveLicense(request):
+    off = Officer.objects.get(account=request.user.id)
+    district = off.office_address
+    doc = Documents.objects.filter(citizenship__perma_district__id=district.pk, citizenship__approval__isnull=False, driving_license__isnull=False).all()
+    documnt = doc.exclude(user=request.user)
+    document = documnt.filter(driving_license__approval__isnull=True).first()
+
+    context={
         'title':'Approve'
-        })
+    }
+
+    if document is None:
+        context={
+            'notice':'No documents left for approval.'
+
+        }
+    else:
+        #license_data = serializers.serialize("json", license)
+        license = document.driving_license
+        license_data = DrivingLicenseDetails(license)
+        usr = document.user.username
+        global dri_id
+        dri_id = license.pk
+
+        if request.method == 'POST':
+            form = ApprovalForm(request.POST)
+            if form.is_valid():
+                form.save(commit=False)
+                usrType = User.objects.get(username=request.user.username)
+                form.instance.approved_by = Officer.objects.get(account=usrType)
+                form.instance.approval_type = 'DRI'
+                approve = form.save()
+                license.approval = approve
+                license.save()
+                messages.success(request, f'License Approved')
+                return redirect('license-approve')
+
+        else:
+            form = ApprovalForm()
+        f={
+            'form':form,
+            'username':usr,
+            'license':license,
+            'license_data':license_data
+            
+        }
+        context.update(f)
+    return render(request, 'accounts/profile-approve.html', context = context)
+
+@login_required
+def denyLicense(request):
+    global dri_id
+    document = Documents.objects.get(driving_license__id=dri_id)
+    document.driving_license = None
+    document.save()
+    license = DrivingLicense.objects.get(id=dri_id)
+    license.delete()
+    #cit = request.session.get('cit')
+    return HttpResponseRedirect(reverse('license-approve'))
 
 @login_required
 def password_change(request):
@@ -162,14 +243,14 @@ def qrcode(request):
         documents = Documents.objects.get(user=request.user)
         national_id = documents.national_id
         if national_id:                            
-            return render(request, 'documents/qrcode.html', {
+            return render(request, 'accounts/qrcode.html', {
                 'national_id': json.dumps(get_nid_dict(documents), indent=4),
                 'title': 'QR Code',
             })
         else:
             return render(request, 'documents/national_id.html', {
                 'messages': ['Your citizenship has not been approved yet. Your National ID and the QR Code will be created automatically once an officer has approved your citizenship.', ],
-                'title': 'QR Code',
+                'title': 'National ID',
             } )
     except:
         return render(request, 'accounts/qrcode.html',{

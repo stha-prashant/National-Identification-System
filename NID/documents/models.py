@@ -15,14 +15,14 @@ class CitizenshipType(models.Model):
     name = models.CharField(max_length=64, blank=False, null=False)
 
     def __str__(self):
-        return f"Citizenship Type: {self.name}"
+        return f"{self.name}"
 
 class CitizenshipAct(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64, blank=False, null=False)
     
     def __str__(self):
-        return f"Citizenship Act: {self.name}"
+        return f"{self.name}"
 
 class Citizenship(models.Model):
     GENDER_CHOICES = (
@@ -145,9 +145,13 @@ class DrivingLicense(models.Model):
 
 
 class Documents(models.Model):
-    citizenship = models.OneToOneField(Citizenship, on_delete=models.CASCADE, related_name="documents")
-    driving_license = models.OneToOneField(DrivingLicense, on_delete=models.PROTECT, related_name="documents", blank=True, null=True)
-    national_id = models.PositiveIntegerField(blank=True, null=True) 
+    citizenship = models.OneToOneField(Citizenship, on_delete=models.CASCADE, related_name="doc_citizenship")
+    driving_license = models.OneToOneField(DrivingLicense, on_delete=models.PROTECT, related_name="doc_license", blank=True, null=True)
+    national_id = models.CharField(max_length=20,blank=True, null=True) 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, primary_key= True,on_delete=models.CASCADE, related_name="documents")
+
+    def __str__(self):
+        return f'Documents of {self.user}'
+
 
     

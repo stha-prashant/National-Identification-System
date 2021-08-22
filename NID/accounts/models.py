@@ -38,8 +38,7 @@ class MyPersonalDetail(models.Model):
 class Approval(models.Model):
     documentTypes=[
         ('CIT','Citizenship'),
-        ('DRI', 'Driving License'),
-        ('ELE', 'Voter Card')
+        ('DRI', 'Driving License')
     ]
     approval_no = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     approval_type = models.CharField(max_length=3, choices=documentTypes, default='CIT')
@@ -49,8 +48,7 @@ class Approval(models.Model):
     def __str__(self):
         doctType = {
         'CIT': 'Citizenship',
-        'DRI': 'Driving License',
-        'ELE' : 'Voter Card' }
+        'DRI': 'Driving License'}
         return f"{doctType[self.approval_type]}  approved by: {self.approved_by.account} "
 
 #Note: There can be a document without approval number but there can't be an approval without a document. 

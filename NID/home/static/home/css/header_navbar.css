@@ -10,8 +10,7 @@ Header stylingsheet
 }
 
 body {
-    font-family: Serif, Arial, Helvetica, sans-serif;
-    font-size: 15px;
+    font-family: Montserrat;
 }
 
 
@@ -28,7 +27,12 @@ body {
 }
 
 
-/*Styling logo*/
+/*Body container*/
+
+.flex-container-body {
+    width: 80%;
+    margin: auto;
+}
 
 
 /*Styling logo*/
@@ -65,10 +69,21 @@ header ul {
     overflow: hidden;
 }
 
-header li {
-    padding: 0px 20px 0px 0px;
+header nav li {
     align-items: left;
     float: left;
+    background: #6DAC73;
+    margin-left: 15px;
+    border-radius: 50px;
+    width: 90px;
+}
+
+header .navbar {
+    align-items: flex-end;
+    width: 20%;
+    margin: auto;
+    justify-content: center;
+    align-content: center;
 }
 
 header li a {
@@ -88,12 +103,12 @@ a:visited {
 
 header a:hover,
 a:active {
-    font-size: 17px;
-    border-bottom: #ffffff 2px solid;
-    text-shadow: #ffffff 2px 2px 5px;
-    color: #ffffff;
-    background-color: #049159
+    background-color: #049159;
+    border-radius: 50px;
 }
+
+
+/*Project name*/
 
 header .project-name {
     padding-bottom: 0px;
@@ -107,37 +122,12 @@ h6 {
     text-align: center;
 }
 
-header nav {
-    margin-top: 20px;
-    shape-outside: margin-box;
-    background: #6DAC73;
-}
-
-header .navbar {
-    align-items: flex-end;
-    width: 20%;
-    margin: auto;
-    justify-content: center;
-    align-content: center;
-}
-
-nav ul {
-    padding: 15px;
-}
-
-nav ul li {
-    list-style-type: none;
-    padding: 10px;
-    border-radius: 15px;
-    margin-left: 15px;
-}
-
 
 /*navigation bar*/
 
 .navigationbar {
-    margin-left: 25%;
-    width: 40%;
+    width: 80%;
+    margin: auto;
     margin-top: 1px;
     display: flex;
     flex-wrap: wrap;
@@ -166,9 +156,18 @@ a:visited {
 
 .navlink a:hover,
 a:active {
-    font-size: 18px;
-    background-color: #77716f;
+    background-color: #c7c4c3;
 }
 
 
-/*Project banner*/
+/*Banner*/
+
+.flex-container-banner {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.banner {
+    width: 100%;
+    margin: auto;
+}

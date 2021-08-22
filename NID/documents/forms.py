@@ -1,7 +1,7 @@
 from django.forms import ModelForm, DateInput
 from documents.models import *
 from address.models import *
-from django.db.models import Q
+from django.db.models import Q, fields
 class CitizenshipForm(ModelForm):
     class Meta:
         model = Citizenship
@@ -130,5 +130,4 @@ class CitizenshipForm(ModelForm):
 class DrivingLicenseForm(ModelForm):
     class Meta:
         model = DrivingLicense
-        fields = "__all__"
-            
+        exclude = ('approval', )
