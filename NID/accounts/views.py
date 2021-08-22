@@ -10,7 +10,7 @@ from django.urls import reverse
 
 from accounts.models import *
 from documents.models import *
-from documents.views import citizenship, driving_license, get_nid_dict
+from documents.views import citizenship, driving_license, get_nid_dict, national_id
 from django.contrib.auth.models import User
 import json
 from django.core.exceptions import ObjectDoesNotExist
@@ -119,7 +119,17 @@ def approve(request):
                 cit.approval = approve
                 cit.save()
                 doc = Documents.objects.get(citizenship__id=cit.pk)
-                doc.national_id = get_national_ID(district.pk) # try
+
+                while True:
+                    nid = get_national_ID(district.pk)
+
+                    try:
+                        document = Documents.objects.get(national_id__exact=nid)
+                        continue
+                    except ObjectDoesNotExist:
+                        doc.national_id = nid
+                        break
+
                 doc.save()
                 messages.success(request, f'Citizenship Approved for {usr}')
 
@@ -239,21 +249,30 @@ def password_change(request):
 
 @login_required
 def qrcode(request):
+    mycontacts  = contacts(request)
     try:
         documents = Documents.objects.get(user=request.user)
         national_id = documents.national_id
-        if national_id:                            
-            return render(request, 'accounts/qrcode.html', {
+        if national_id:
+            context={
                 'national_id': json.dumps(get_nid_dict(documents), indent=4),
                 'title': 'QR Code',
-            })
+            }
+
+            context.update(mycontacts)                        
+            return render(request, 'accounts/qrcode.html', context=context)
         else:
-            return render(request, 'documents/national_id.html', {
+            context={
                 'messages': ['Your citizenship has not been approved yet. Your National ID and the QR Code will be created automatically once an officer has approved your citizenship.', ],
                 'title': 'National ID',
-            } )
+            }
+
+            context.update(mycontacts)
+            return render(request, 'documents/national_id.html', context=context )
     except:
-        return render(request, 'accounts/qrcode.html',{
+        context={
             'title':'QR Code'
-        })
+        }
+        context.update(mycontacts)
+        return render(request, 'accounts/qrcode.html', context=context)
 
