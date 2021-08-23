@@ -43,7 +43,6 @@ class CitizenshipForm(ModelForm):
             
         if 'perma_region' in self.data:
             try:
-                new_old = int(self.data.get('perma_new_old'))
                 new_old = self.data.get('perma_new_old')
                 if (new_old == "on"):
                     new_old = True
@@ -103,7 +102,7 @@ class CitizenshipForm(ModelForm):
                     new_old = True
                 else:
                     new_old = False
-                self.fields['perma_local_category'].queryset = LocalBodyCategory.objects.filter(new_old=new_old)
+                self.fields['perma_local_category'].queryset = LocalBodyCategory.objects.filter(Q(new_old=new_old) | Q(new_old=None))
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk:
