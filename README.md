@@ -2,9 +2,9 @@
 <hr>
 
 ### Installing dependencies
-Run 
+Run from inside project root (National-Identification-System) folder
 ```bash
-pip install -r NID/envs/requirements.txt
+pip install -r envs/requirements.txt
 ```
 ### Running the website
 First make all necessary migrations from inside the `NID` folder
