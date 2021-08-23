@@ -34,8 +34,8 @@ class Citizenship(models.Model):
     citizenship_no = models.CharField(max_length=64, blank=False, null=False)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     approval = models.OneToOneField(Approval, on_delete=models.PROTECT, null=True, blank=True, related_name="citizenships")
-    photo_front = models.FileField(upload_to="citizenship/", blank=True, null=True)
-    photo_back = models.FileField(upload_to="citizenship/", blank=True, null=True)
+    photo_front = models.FileField(upload_to="citizenship/")
+    photo_back = models.FileField(upload_to="citizenship/")
     first_name = models.CharField(max_length=32, blank=False)
     middle_name = models.CharField(max_length=32, blank=True, null=True)
     last_name = models.CharField(max_length=32, blank=False)
@@ -80,7 +80,7 @@ class Citizenship(models.Model):
     spouse_citizenship_id = models.IntegerField(blank=True, null=True)
 
     citizenship_type = models.ForeignKey(CitizenshipType, on_delete=models.PROTECT, related_name="citizenships")
-    face_photo = models.FileField(upload_to="citizenship/", blank=True, null=True)
+    face_photo = models.FileField(upload_to="citizenship/")
 
     issue_date_bs = models.DateField()
     citizenship_act = models.ForeignKey(CitizenshipAct, on_delete=models.PROTECT, related_name="citizenships")
@@ -138,7 +138,7 @@ class DrivingLicense(models.Model):
     blood_group = models.CharField(choices=BLOOD_GROUP_CHOICES, max_length=3)
     license_category = MultiSelectField(choices=LICENSE_CATEGORY_CHOICES, max_length=32) 
     approval = models.OneToOneField(Approval, on_delete=models.CASCADE, related_name="licenses", blank=True, null=True) 
-    document_photo = models.FileField(upload_to="driving_license/", blank=True, null=True)
+    document_photo = models.FileField(upload_to="driving_license/")
 
     def __str__(self):
         return f"ID: {self.id}, Category(s): {self.license_category}"

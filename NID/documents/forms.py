@@ -28,7 +28,11 @@ class CitizenshipForm(ModelForm):
         # TODO: DRY principle: create a single function for all these stuff below
         if 'birth_region' in self.data:
             try:
-                new_old = int(self.data.get('birth_new_old'))
+                new_old = self.data.get('birth_new_old')
+                if (new_old == "on"):
+                    new_old = True
+                else:
+                    new_old = False
                 self.fields['birth_region'].queryset = Region.objects.filter(new_old=new_old)
             except (ValueError, TypeError):
                 pass
@@ -39,7 +43,12 @@ class CitizenshipForm(ModelForm):
             
         if 'perma_region' in self.data:
             try:
-                new_old = int(self.data.get('birth_new_old'))
+                new_old = int(self.data.get('perma_new_old'))
+                new_old = self.data.get('perma_new_old')
+                if (new_old == "on"):
+                    new_old = True
+                else:
+                    new_old = False
                 self.fields['perma_region'].queryset = Region.objects.filter(new_old=new_old)
             except (ValueError, TypeError):
                 pass
