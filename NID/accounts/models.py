@@ -50,6 +50,3 @@ class Approval(models.Model):
         'CIT': 'Citizenship',
         'DRI': 'Driving License'}
         return f"{doctType[self.approval_type]}  approved by: {self.approved_by.account} "
-
-#Note: There can be a document without approval number but there can't be an approval without a document. 
-# This rule is voilated here. Rectify later on!
