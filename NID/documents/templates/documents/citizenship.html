@@ -45,17 +45,17 @@
                     </div>
                 {% endif %}
 
-                {% if citizenship_form %}
+                {% if citizenship_detail %}
                     <table class="table table-striped">
                         <thead>
 
                         </thead>
                         <tbody>
-                            {% for field in citizenship_form %}
-                                {% if field.value %}
+                            {% for key, value in citizenship_detail.items %}
+                                {% if value %}
                                     <tr scope="row">
-                                        <td>{{field.label}}</td>
-                                        <td>{{field.value}}</td>
+                                        <td>{{key}}</td>
+                                        <td>{{value}}</td>
                                     </tr>
                                 {% endif %}
                             {% endfor %}

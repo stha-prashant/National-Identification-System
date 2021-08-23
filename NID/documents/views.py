@@ -7,20 +7,18 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-import datetime
-import random
 from django.forms.models import model_to_dict
-from accounts.profile import contacts
+from accounts.profile import contacts, CitizenshipDetail, DrivingLicenseDetails
+
 # Create your views here.
 @login_required
 def citizenship(request):
     try:
         documents = Documents.objects.get(user=request.user)
         citizenship = documents.citizenship
-        citizenship_form = CitizenshipForm(data=model_to_dict(documents.citizenship))
         return render(request, 'documents/citizenship.html', {
             'citizenship': citizenship,
-            'citizenship_form': citizenship_form,
+            'citizenship_detail': CitizenshipDetail(citizenship) ,
             'title':'Citizenship'
         })
     except Documents.DoesNotExist:
@@ -43,15 +41,6 @@ def citizenship_form(request):
                 citizenship.save()
                 documents.save()
             except Documents.DoesNotExist:
-                # national_id = f"{datetime.datetime.now().strftime('%Y%m%d')}{citizenship.birth_district.id}"
-                # while True:
-                #     try:
-                #         national_id += f"{random.randint(1, 9999)}"
-                #         Documents.objects.get(national_id=national_id)
-                #         break
-                #     except Documents.DoesNotExist:
-                #         pass
-                # Documents(national_id=national_id, citizenship=citizenship).save()
                 citizenship.save()
                 Documents(citizenship=citizenship, user=request.user).save()
 
@@ -79,7 +68,8 @@ def driving_license(request):
             return HttpResponseRedirect(reverse("driving_license_form"))
         else:
             return render(request, 'documents/driving_license.html', {
-                'driving_license_form': DrivingLicenseForm(data=model_to_dict(driving_license)),
+                'driving_license_detail': DrivingLicenseDetails(driving_license),
+                'driving_license_photo': driving_license.document_photo,
                 'title':'Driving License'
             })
     except Documents.DoesNotExist:

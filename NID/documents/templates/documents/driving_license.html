@@ -38,20 +38,22 @@
                 </form>
                 {% endif %}
 
-                {% if driving_license_form %}
+                {% if driving_license_photo %}
                     <div class="document_img">
-                        {% if driving_license_form.document_photo.url %}<img id="license_photo" src="{{ driving_license_form.document_photo.url }}">{% endif %}
+                        {% if driving_license_photo.url %}<img id="license_photo" src="{{ driving_license_photo.url }}">{% endif %}
                     </div>
+                {% endif %}
+                {% if driving_license_detail %}
                     <table class="table table-striped">
                         <thead>
 
                         </thead>
                         <tbody>
-                            {% for field in driving_license_form %}
-                                {% if field.value %}
+                            {% for key, value in driving_license_detail.items %}
+                                {% if value %}
                                     <tr scope="row">
-                                        <td>{{field.label}}</td>
-                                        <td>{{field.value}}</td>
+                                        <td>{{key}}</td>
+                                        <td>{{value}}</td>
                                     </tr>
                                 {% endif %}
                             {% endfor %}

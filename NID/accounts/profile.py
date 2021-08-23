@@ -60,7 +60,7 @@ def get_national_ID(district):
 def CitizenshipDetail(cit):
     if cit is not None:
         citDetails= {
-            'Citizenship No.:':f'{cit.citizenship_no}',
+            'Citizenship No.':f'{cit.citizenship_no}',
             'Full Name': f'{cit.first_name} {cit.middle_name or ""} {cit.last_name}',
             'Date of Birth': f'{cit.dob_bs} B.S.',
             'Gender': f'{cit.gender}',
@@ -69,7 +69,7 @@ def CitizenshipDetail(cit):
             'Father\'s Name': f'{cit.father_first_name} {cit.father_middle_name or ""} {cit.father_last_name}',
             'Father\'s Citizenship': f'{cit.father_citizenship_id}',
             'Mother\'s Name':f'{cit.mother_first_name or ""} {cit.mother_middle_name or ""} {cit.mother_last_name or ""}',
-            'Mother\'s Citizenship': f'{cit.mother_citizenship_id}',
+            'Mother\'s Citizenship': f'{cit.mother_citizenship_id or ""}',
             'Spouse\'s Name':f'{cit.spouse_first_name or ""} {cit.spouse_middle_name or ""} {cit.spouse_last_name or ""}',
             'Spouse\'s Citizenship': f'{cit.spouse_citizenship_id or ""}',
             'Citizenship Act':f'{cit.citizenship_act}',
@@ -85,10 +85,11 @@ def CitizenshipDetail(cit):
 def DrivingLicenseDetails(license):
     if license is not None:
         licenseDetails={
-            'License Number:': f'{license.id}',
-            'Issued Date:':f'{license.issue_date}',
-            'Blood Group:':f'{license.blood_group}',
-            'Category:': f'{license.license_category}',
+            'License Number': f'{license.id}',
+            'Issued Date':f'{license.issue_date}',
+            'Issued From': f'{license.issue_centre}',
+            'Blood Group':f'{license.blood_group}',
+            'Category': f'{license.license_category}',
             }
         return licenseDetails
     else:
