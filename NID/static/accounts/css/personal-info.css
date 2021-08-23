@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+.main-content {
+    /* Same as the width of the sidenav */
+    margin-top: 0px;
+    margin: auto;
+    width: 80%;
+}
+
+.myinfo {
+    display: flex;
+    width: 95%;
+    margin-top: 35px;
+    margin-left: 5%;
+}
+
+#info-box {
+    border-radius: 25px;
+    padding: 20px;
+    /*box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 16px 1px rgba(0, 0, 0, 0.19);*/
+    /*box-shadow: 0px 3px 4px 0px rgb(0 0 0 / 31%);*/
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.28), 0px 41.7776px 33.4221px rgba(0, 0, 0, 0.201279), 0px 22.3363px 17.869px rgba(0, 0, 0, 0.16691), 0px 12.5216px 10.0172px rgba(0, 0, 0, 0.14), 0px 6.6501px 5.32008px rgba(0, 0, 0, 0.11309), 0px 2.76726px 2.21381px rgba(0, 0, 0, 0.0787208);
+    background-color: #DFE3E7
+}
+
+
+/*Styling profile picture*/
+
+.account-img {
+    width: 200x;
+    height: 200px;
+    box-shadow: 0px 67px 80px rgba(0, 0, 0, 0.23), 0px 24.5255px 33.4221px rgba(0, 0, 0, 0.165337), 0px 12.13px 17.869px rgba(0, 0, 0, 0.137105), 0px 5.885px 10.0172px rgba(0, 0, 0, 0.115), 0px 2.51291px 5.32008px rgba(0, 0, 0, 0.0928953), 0px 0.760666px 2.21381px rgba(0, 0, 0, 0.0646635);
+    border-radius: 50%;
+    margin: auto;
+    align-content: center;
+}
+
+.myinfo ul {
+    list-style: none;
+}
+
+.myinfo .profile-picture {
+    width: 40%
+}
+
+
+/*Styling contact information*/
+
+.myinfo .contact-info {
+    font-family: Montserrat;
+    font-size: 18px;
+    width: 80%;
+    margin: auto;
+    align-content: flex-end;
+}
+
+.main-content .personal_details {
+    margin-top: 35px;
+    font-family: Montserrat;
+    width: 100%;
+}
+
+.personal_details td {
+    list-style: none;
+    padding: 10px;
+}

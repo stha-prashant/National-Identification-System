@@ -1,0 +1,13 @@
+/*
+Styling login page
+*/
+
+body {
+    background-color: #fafafa;
+    font-family: Montserrat;
+}
+
+main .content-section {
+    width: 110%;
+    margin: auto;
+}

@@ -25,7 +25,9 @@ SECRET_KEY = 'ohj9g5v-+p-c3@(p2&9x^@uby2p(-@5t10vss&c!+ypkdvse7o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'nid.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -125,7 +127,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'account-profile'
