@@ -77,6 +77,8 @@
                     <li>Phone : {% if phone %} {{ phone }} {% endif %} </li>
                     {% if user.officerName %}
                     <li>Role: Officer   <i class="fas fa-user-check" style="color:green;font-size:18px;"></i> </li>
+                    <li> Office Name    : {{user.officerName.office }}</li>
+                    <li> Office Address : {{user.officerName.office_address}} </li>
                     {% else %}
                     <li>Role: Citizen 
                          {% if user.documents.citizenship.approval %} <i class="fas fa-user-check" style="color:green;font-size:18px;"></i> 
